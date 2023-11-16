@@ -88,3 +88,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Verdana
+      fonts:
+        - asset: assets/font/VerdanaBold.ttf
+        - asset: assets/font/verdana.ttf
+        - asset: assets/font/VERDANA0.TTF
+        - asset: assets/font/verdanab.ttf

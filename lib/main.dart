@@ -13,15 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AppHome',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("aa"),
-        ),
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana'),
+      home: Scaffold(),
     );
   }
 }
-
