@@ -1,4 +1,5 @@
 import 'package:doan_monhoc/views/login_screen.dart';
+import 'package:doan_monhoc/views/rooms/room_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'AppHome',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana'),
-      home: Scaffold(),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana',),
+      home: RoomWiget(title: "A"),
     );
   }
 }
