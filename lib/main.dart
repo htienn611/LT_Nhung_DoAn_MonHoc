@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AppHome',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana',),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        fontFamily: 'Verdana',
+      ),
       home: Scaffold(),
     );
   }
