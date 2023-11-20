@@ -20,8 +20,9 @@ class _loginScreenState extends State<loginScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Container(
-            padding: EdgeInsets.fromLTRB(5, 150, 5, 5),
+            padding: EdgeInsets.fromLTRB(50, 150, 50, 5),
             child: Column(
+              
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(200),
@@ -32,22 +33,22 @@ class _loginScreenState extends State<loginScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Padding(padding: EdgeInsets.all(5)),
+                Padding(padding: EdgeInsets.all(20)),
                 Text(
-                  "Đăng nhập",
-                  style: TextStyle(color: Colors.blueAccent, fontSize: 25),
+                  "ĐĂNG NHẬP",
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 30,fontWeight: FontWeight.bold),
                 ),
-                Padding(padding: EdgeInsets.all(5)),
+                Padding(padding: EdgeInsets.all(10)),
                 TextField(
                   decoration: InputDecoration(
-                      hintText: 'Số điện thoại',
+                      hintText: 'Số điện thoại',hintStyle: TextStyle(fontSize: 18),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
                 Padding(padding: EdgeInsets.all(5)),
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Mật khẩu',
+                    hintText: 'Mật khẩu',hintStyle: TextStyle(fontSize: 18),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     suffixIcon: IconButton(
@@ -68,32 +69,40 @@ class _loginScreenState extends State<loginScreen> {
                             ischecked = value!;
                           });
                         }),
-                    Text("Nhớ mật khẩu")
+                    Text("Nhớ mật khẩu",style: TextStyle(fontSize: 18),)
                   ],
                 ),
                 OutlinedButton(
                   onPressed: () {},
+          
                   child: Text(
                     "Đăng nhập",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white,fontSize: 18),
                   ),
+                  
                   style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue)),
+                          (states) => Colors.blue),
+                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+                            minimumSize: MaterialStateProperty.all(Size(150, 50))                       
+                          ),
+                        
                 ),
+                Padding(padding: EdgeInsets.all(5)),
                 TextButton(
                     onPressed: () {},
                     child: Text(
                       "Quên mật khẩu",
-                      style: TextStyle(color: Colors.blue),
-                    )),
+                      style: TextStyle(color: Colors.blue,fontSize: 18),
+                    ),
+                ),
                 IconButton(
                     onPressed: () {
                       SystemChannels.platform
                           .invokeMethod('SystemNavigator.pop');
                       exit(0);
                     },
-                    icon: Icon(Icons.exit_to_app)),
+                    icon: Icon(Icons.exit_to_app),iconSize: 40,),
               ],
             ),
           ),

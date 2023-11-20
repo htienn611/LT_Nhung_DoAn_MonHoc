@@ -61,6 +61,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/img/logoSmartHome.png
+      - assets/img/avt.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -88,3 +89,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Verdana
+      fonts:
+        - asset: assets/font/VerdanaBold.ttf
+        - asset: assets/font/verdana.ttf
+        - asset: assets/font/VERDANA0.TTF
+        - asset: assets/font/verdanab.ttf
