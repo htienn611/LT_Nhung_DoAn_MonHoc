@@ -22,7 +22,6 @@ class _loginScreenState extends State<loginScreen> {
           child: Container(
             padding: EdgeInsets.fromLTRB(50, 150, 50, 5),
             child: Column(
-              
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(200),
