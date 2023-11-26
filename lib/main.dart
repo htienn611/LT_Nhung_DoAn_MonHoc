@@ -1,6 +1,8 @@
 import 'package:doan_monhoc/views/admin/account_creation_screen.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:doan_monhoc/views/login_screen.dart';
+import 'package:doan_monhoc/views/forgot_pass_screen.dart';
+import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:doan_monhoc/views/room_device_screen.dart';
 import 'package:doan_monhoc/views/rooms/room_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AppHome',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana',),
-      home: Scaffold(),
+      home:Scaffold()
     );
   }
 }
