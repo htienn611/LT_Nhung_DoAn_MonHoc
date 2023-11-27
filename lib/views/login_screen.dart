@@ -20,9 +20,8 @@ class _loginScreenState extends State<loginScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Container(
-            padding: EdgeInsets.fromLTRB(50, 150, 50, 5),
+            padding: EdgeInsets.fromLTRB(50, 100, 50, 5),
             child: Column(
-              
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(200),
