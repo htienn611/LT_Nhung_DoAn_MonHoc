@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/widgets.dart';
 
 class FogotPassScreen extends StatefulWidget {
   const FogotPassScreen({super.key});
-
   @override
   State<FogotPassScreen> createState() => _FogotPassScreenState();
 }
@@ -13,6 +14,7 @@ class FogotPassScreen extends StatefulWidget {
 class _FogotPassScreenState extends State<FogotPassScreen> {
   TextEditingController phone = TextEditingController();
   TextEditingController OTP = TextEditingController();
+  int state=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,16 +43,18 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                       SizedBox(
                         height: 30,
                       ),
+
                       Column(
                         children: [
                           TextField(
                         controller: phone,
                         decoration: InputDecoration(
-                            hintText: "Nhập Số điện thoại",
+                            hintText: state==1? "Nhập Số điện thoại":"Nhập mật khẩu mới",
                             hintStyle: TextStyle(fontSize: 18),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            suffixIcon: ElevatedButton(
+                            
+                            suffixIcon:state==1? ElevatedButton(
                               child: Text(
                                 "OK",
                                 style: TextStyle(fontSize: 18),
@@ -63,7 +67,7 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20)))),
                               onPressed: () {},
-                            )),
+                            ):null),
                       ),
                       Text("",style: TextStyle(fontSize: 15,color: Colors.redAccent),),
                         ],
@@ -77,11 +81,11 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                           TextField(
                         controller: OTP,
                         decoration: InputDecoration(
-                            hintText: "Nhập mã OTP",
+                            hintText: state==1? "Nhập mã OTP":"Nhập lại mật khẩu",
                             hintStyle: TextStyle(fontSize: 18),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            suffixIcon: ElevatedButton(
+                            suffixIcon:state==1? ElevatedButton(
                               child: Text(
                                 "Gửi",
                                 style: TextStyle(fontSize: 18),
@@ -94,7 +98,7 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20)))),
                               onPressed: () {},
-                            )),
+                            ):null),
                       ),
                       SizedBox(
                         height: 10,
@@ -107,6 +111,7 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                       SizedBox(
                         height: 20,
                       ),
+                      if(state==1)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -123,9 +128,13 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                                           BorderRadius.circular(20)))),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                             setState(() {
+                              state=2;
+                            });
+                          },
                           child: Text(
-                            "Thoát",
+                            "Tiếp tục",
                             style: TextStyle(fontSize: 18),
                           ),
                           style: ButtonStyle(
@@ -135,6 +144,27 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                                           BorderRadius.circular(20)))),
                         )
                       ])
-                    ])))));
+                      else if(state==2)
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              state=1;
+                            });
+                          },
+                          child: Text(
+                            "Xác nhận",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20)))),
+                        )
+                    ])
+                    )
+                    )
+                    )
+                    );
   }
 }

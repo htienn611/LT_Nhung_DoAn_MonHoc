@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AppHome',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana',),
-      home:Scaffold()
+      home:FogotPassScreen()
     );
   }
 }
