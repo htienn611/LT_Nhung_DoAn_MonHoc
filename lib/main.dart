@@ -1,5 +1,6 @@
 import 'package:doan_monhoc/views/admin/account_creation_screen.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
+import 'package:doan_monhoc/views/home_screen.dart';
 import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/forgot_pass_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
@@ -18,10 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'AppHome',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Verdana',),
-      home:Scaffold()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'AppHome',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: 'Verdana',
+        ),
+        home: HomeScreen());
   }
 }

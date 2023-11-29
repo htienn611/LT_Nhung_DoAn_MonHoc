@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 40,
                         height: 40,
                         child: CircleAvatar(
-                            backgroundImage: AssetImage("assets/img/anh1.png")),
+                            backgroundImage: AssetImage("assets/img/logoSmartHome.png")),
                       ),
                     ),
                     Column(
