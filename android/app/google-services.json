@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "220079105147",
+    "project_id": "smarthomeapp-b9fe6",
+    "storage_bucket": "smarthomeapp-b9fe6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220079105147:android:dc7db115b32bb80788eede",
+        "android_client_info": {
+          "package_name": "com.example.demo_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc33dutBNpinWKib0Kp0QGQJhdXIIQBcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220079105147:android:97bd5e9d1bfd441088eede",
+        "android_client_info": {
+          "package_name": "com.example.doan_monhoc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc33dutBNpinWKib0Kp0QGQJhdXIIQBcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

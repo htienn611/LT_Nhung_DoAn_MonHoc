@@ -55,7 +55,7 @@ class _InfoState extends State<Info> {
                               height: 150,
                               child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/img/anh1.png"),
+                                    AssetImage("assets/img/logoSmartHome.png"),
                               ),
                             ),
                           ),
