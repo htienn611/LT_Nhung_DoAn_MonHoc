@@ -43,6 +43,9 @@ dependencies:
   firebase_messaging: ^14.7.6
   firebase_database: ^10.3.6
   cloud_functions: ^4.5.6
+  google_sign_in: ^6.1.6
+  http: ^0.13.3
+  characters: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +73,10 @@ flutter:
   assets:
       - assets/img/logoSmartHome.png
       - assets/img/avt.png
+      - assets/img/cloud.png
+      - assets/img/rain.png
+      - assets/img/sun.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

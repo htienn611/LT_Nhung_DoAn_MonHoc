@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
@@ -44,28 +47,32 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                       Column(
                         children: [
                           TextField(
-                        controller: phone,
-                        decoration: InputDecoration(
-                            hintText: "Nhập Số điện thoại",
-                            hintStyle: TextStyle(fontSize: 18),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            suffixIcon: ElevatedButton(
-                              child: Text(
-                                "OK",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.fromLTRB(0, 20, 0, 20)),
-                                  shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)))),
-                              onPressed: () {},
-                            )),
-                      ),
-                      Text("",style: TextStyle(fontSize: 15,color: Colors.redAccent),),
+                            controller: phone,
+                            decoration: InputDecoration(
+                                hintText: "Nhập Số điện thoại",
+                                hintStyle: TextStyle(fontSize: 18),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                suffixIcon: ElevatedButton(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.fromLTRB(0, 20, 0, 20)),
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)))),
+                                  onPressed: () {},
+                                )),
+                          ),
+                          Text(
+                            "",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.redAccent),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -75,66 +82,74 @@ class _FogotPassScreenState extends State<FogotPassScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextField(
-                        controller: OTP,
-                        decoration: InputDecoration(
-                            hintText: "Nhập mã OTP",
-                            hintStyle: TextStyle(fontSize: 18),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            suffixIcon: ElevatedButton(
-                              child: Text(
-                                "Gửi",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.fromLTRB(0, 20, 0, 20)),
-                                  shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)))),
-                              onPressed: () {},
-                            )),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("",style: TextStyle(fontSize: 15,color: Colors.redAccent),),
-
+                            controller: OTP,
+                            decoration: InputDecoration(
+                                hintText: "Nhập mã OTP",
+                                hintStyle: TextStyle(fontSize: 18),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                suffixIcon: ElevatedButton(
+                                  child: Text(
+                                    "Gửi",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.fromLTRB(0, 20, 0, 20)),
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)))),
+                                  onPressed: () {},
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.redAccent),
+                          ),
                         ],
                       ),
-                      
                       SizedBox(
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Quay lại",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20)))),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Thoát",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20)))),
-                        )
-                      ])
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "Quay lại",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)))),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                SystemChannels.platform
+                                    .invokeMethod('SystemNavigator.pop');
+                                exit(0);
+                              },
+                              child: Text(
+                                "Thoát",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)))),
+                            )
+                          ])
                     ])))));
   }
 }
