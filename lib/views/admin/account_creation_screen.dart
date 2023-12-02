@@ -18,7 +18,8 @@ class _account_CreationScreenState extends State<account_CreationScreen> {
       body: SingleChildScrollView(
         child: Center(
         child: Container(
-          padding: EdgeInsets.fromLTRB(50, 150, 50, 5),
+          padding: EdgeInsets.fromLTRB(50, 100, 50, 5),
+         
           child: Column(
             children: [
                 ClipRRect(
@@ -30,7 +31,7 @@ class _account_CreationScreenState extends State<account_CreationScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(20)),
+                  Padding(padding: EdgeInsets.all(10)),
                   Text("ĐĂNG KÝ TÀI KHOẢN",style: TextStyle(color: Colors.blueAccent, fontSize: 30,fontWeight: FontWeight.bold)),
                   Padding(padding: EdgeInsets.all(10)),
                   TextField(
