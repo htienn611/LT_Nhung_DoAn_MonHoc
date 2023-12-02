@@ -1,34 +1,10 @@
-
 import 'package:flutter/material.dart';
-
-class CardTT extends StatefulWidget {
-  const CardTT({super.key});
-
-  @override
-  State<CardTT> createState() => _CardTTState();
-}
-
-class _CardTTState extends State<CardTT> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 330,
-      child:const Card(
-        color: Colors.white,
-      ),
-    );
-  }
-}
-///////////////////////
-
 
 class Info extends StatefulWidget {
   const Info({super.key});
   @override
   State<Info> createState() => _InfoState();
 }
-
 class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
@@ -119,7 +95,8 @@ class _InfoState extends State<Info> {
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(const Size(260,40)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(260, 40)),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.grey.shade400)),
                 ),
@@ -132,7 +109,8 @@ class _InfoState extends State<Info> {
                   label: const Text(""),
                   style: ButtonStyle(
                       iconSize: MaterialStateProperty.all<double>(35),
-                      fixedSize: MaterialStateProperty.all<Size>(const Size(100,40)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(100, 40)),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.grey.shade400)),
                 ),
@@ -146,7 +124,6 @@ class _InfoState extends State<Info> {
   }
 }
 ///////////////////////
-
 
 // 3 dòng ngan avatar
 class ThanhPhan extends StatefulWidget {
@@ -215,13 +192,13 @@ class _NutChucNangState extends State<NutChucNang> {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: [
-          ElevatedButton(
-            onPressed: null, 
+      children: [
+        ElevatedButton(
+            onPressed: null,
             style: ElevatedButton.styleFrom(
                 //fixedSize: const Size(60,10)
-                //minimumSize: 
-            ),
+                //minimumSize:
+                ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -230,7 +207,7 @@ class _NutChucNangState extends State<NutChucNang> {
                 const Icon(Icons.navigate_next)
               ],
             ))
-        ],
-      );
+      ],
+    );
   }
 }

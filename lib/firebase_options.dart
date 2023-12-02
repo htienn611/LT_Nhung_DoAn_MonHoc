@@ -44,37 +44,41 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCxZU7GSXboLVCCawwLedQKJWJY_9oeMzc',
-    appId: '1:220079105147:web:928a0540ac0ad7b688eede',
-    messagingSenderId: '220079105147',
-    projectId: 'smarthomeapp-b9fe6',
-    authDomain: 'smarthomeapp-b9fe6.firebaseapp.com',
-    storageBucket: 'smarthomeapp-b9fe6.appspot.com',
+    apiKey: 'AIzaSyBMc4lpV_-IFZqlObxRdQhH_NtMlw7CQ_c',
+    appId: '1:457047554936:web:8b09dd91ffaa3858cce68d',
+    messagingSenderId: '457047554936',
+    projectId: 'smarthomeapp-b0059',
+    authDomain: 'smarthomeapp-b0059.firebaseapp.com',
+    storageBucket: 'smarthomeapp-b0059.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBc33dutBNpinWKib0Kp0QGQJhdXIIQBcc',
-    appId: '1:220079105147:android:97bd5e9d1bfd441088eede',
-    messagingSenderId: '220079105147',
-    projectId: 'smarthomeapp-b9fe6',
-    storageBucket: 'smarthomeapp-b9fe6.appspot.com',
+    apiKey: 'AIzaSyARHE1JjWDwqlTMo5rtaZjKH799-bDZgsc',
+    appId: '1:457047554936:android:553ef93ec2b4f24bcce68d',
+    messagingSenderId: '457047554936',
+    projectId: 'smarthomeapp-b0059',
+    storageBucket: 'smarthomeapp-b0059.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDPkSj43K2qhjbyF4EUHlEM0CwHvaxONMw',
-    appId: '1:220079105147:ios:4d5457df108ea40788eede',
-    messagingSenderId: '220079105147',
-    projectId: 'smarthomeapp-b9fe6',
-    storageBucket: 'smarthomeapp-b9fe6.appspot.com',
+    apiKey: 'AIzaSyBHMvRg0_qmWRvGybfrKrt3JCVNYd5S1dE',
+    appId: '1:457047554936:ios:3a40cea08fe311b8cce68d',
+    messagingSenderId: '457047554936',
+    projectId: 'smarthomeapp-b0059',
+    storageBucket: 'smarthomeapp-b0059.appspot.com',
+    androidClientId: '457047554936-qjbo3jfpds8pi51m9g31h1qqitedu4ev.apps.googleusercontent.com',
+    iosClientId: '457047554936-2pug4s40sjpkk9r1j2i2bkrigtbm9gbk.apps.googleusercontent.com',
     iosBundleId: 'com.example.doanMonhoc',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDPkSj43K2qhjbyF4EUHlEM0CwHvaxONMw',
-    appId: '1:220079105147:ios:4d5457df108ea40788eede',
-    messagingSenderId: '220079105147',
-    projectId: 'smarthomeapp-b9fe6',
-    storageBucket: 'smarthomeapp-b9fe6.appspot.com',
+    apiKey: 'AIzaSyBHMvRg0_qmWRvGybfrKrt3JCVNYd5S1dE',
+    appId: '1:457047554936:ios:3a40cea08fe311b8cce68d',
+    messagingSenderId: '457047554936',
+    projectId: 'smarthomeapp-b0059',
+    storageBucket: 'smarthomeapp-b0059.appspot.com',
+    androidClientId: '457047554936-qjbo3jfpds8pi51m9g31h1qqitedu4ev.apps.googleusercontent.com',
+    iosClientId: '457047554936-2pug4s40sjpkk9r1j2i2bkrigtbm9gbk.apps.googleusercontent.com',
     iosBundleId: 'com.example.doanMonhoc',
   );
 }

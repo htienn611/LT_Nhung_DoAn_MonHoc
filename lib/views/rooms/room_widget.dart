@@ -156,7 +156,7 @@ class _RoomWigetState extends State<RoomWiget> {
                 Card(
                   child: Container(
                     height: 50,
-                    padding:const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
