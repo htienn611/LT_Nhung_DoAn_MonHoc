@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
+// ignore: must_be_immutable
 class RoomWiget extends StatefulWidget {
   RoomWiget({super.key, required this.title});
-  var title;
+  String title;
   @override
   State<RoomWiget> createState() => _RoomWigetState();
 }
@@ -29,8 +29,8 @@ class _RoomWigetState extends State<RoomWiget> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Room A",
+              Text(
+                "Phòng ${widget.title}",
                 style: TextStyle(fontSize: 35),
               ),
               Row(
@@ -69,16 +69,6 @@ class _RoomWigetState extends State<RoomWiget> {
               ),
             ],
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 4.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 5.5,
-                child: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/img/avt.png')),
-              ),
-            )
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -88,11 +78,11 @@ class _RoomWigetState extends State<RoomWiget> {
                 Card(
                   child: Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Đèn 1",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -103,7 +93,7 @@ class _RoomWigetState extends State<RoomWiget> {
                                 swLed1 = value!;
                               });
                             }),
-                        Text(
+                        const Text(
                           "Ngày lắp đặt: 12/10/2023",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -114,11 +104,11 @@ class _RoomWigetState extends State<RoomWiget> {
                 Card(
                   child: Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Đèn 1",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -129,7 +119,7 @@ class _RoomWigetState extends State<RoomWiget> {
                                 swLed2 = value!;
                               });
                             }),
-                        Text(
+                        const Text(
                           "Ngày lắp đặt: 12/10/2023",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -144,7 +134,7 @@ class _RoomWigetState extends State<RoomWiget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Đèn 1",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -155,7 +145,7 @@ class _RoomWigetState extends State<RoomWiget> {
                                 swLed3 = value!;
                               });
                             }),
-                        Text(
+                        const Text(
                           "Ngày lắp đặt: 12/10/2023",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -166,11 +156,11 @@ class _RoomWigetState extends State<RoomWiget> {
                 Card(
                   child: Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Báo động",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -181,7 +171,7 @@ class _RoomWigetState extends State<RoomWiget> {
                                 swLed4 = value!;
                               });
                             }),
-                        Text(
+                        const Text(
                           "Ngày lắp đặt: 12/10/2023",
                           style: TextStyle(fontSize: 18),
                         ),
@@ -192,7 +182,7 @@ class _RoomWigetState extends State<RoomWiget> {
                 Card(
                   child: Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       children: const [
                         Text(
@@ -208,15 +198,27 @@ class _RoomWigetState extends State<RoomWiget> {
                   ),
                 ),
                 Card(
-                  child: Container(
-                    width: 400,
-                    height: 400,
-                    color: Colors.amber,
-                    child: Text(
-                      "Slider",
-                      style: TextStyle(fontSize: 50),
-                      textAlign: TextAlign.center,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: const Text(
+                          "Hình ảnh phòng:",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 10,
+                        child: CarouselSlider.builder(
+                          options: CarouselOptions(autoPlay: true),
+                          itemCount: lstImg.length,
+                          itemBuilder: (BuildContext context, int itemIndex,
+                                  int pageViewIndex) =>
+                              SizedBox(child: Image.asset(lstImg[itemIndex])),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               ],
@@ -225,3 +227,5 @@ class _RoomWigetState extends State<RoomWiget> {
         ));
   }
 }
+
+List<String> lstImg = ["assets/img/logoSmartHome.png", "assets/img/avt.png"];

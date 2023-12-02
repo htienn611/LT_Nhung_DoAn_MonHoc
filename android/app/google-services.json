@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "457047554936",
+    "project_id": "smarthomeapp-b0059",
+    "storage_bucket": "smarthomeapp-b0059.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457047554936:android:553ef93ec2b4f24bcce68d",
+        "android_client_info": {
+          "package_name": "com.example.doan_monhoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457047554936-qjbo3jfpds8pi51m9g31h1qqitedu4ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.doan_monhoc",
+            "certificate_hash": "539f412f67f089249cc9b264d5c5472715392edc"
+          }
+        },
+        {
+          "client_id": "457047554936-4a01esbtl2overos6mbp3s5605n9jkeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARHE1JjWDwqlTMo5rtaZjKH799-bDZgsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457047554936-4a01esbtl2overos6mbp3s5605n9jkeb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457047554936-2pug4s40sjpkk9r1j2i2bkrigtbm9gbk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doanMonhoc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
