@@ -14,9 +14,9 @@ class _CardItemState extends State<CardRoomState> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (MediaQuery.of(context).size.width - 40) * 2 / 3 > 185
-          ? 371
-          : (MediaQuery.of(context).size.width - 40) * 2 / 3,
+      width: (MediaQuery.of(context).size.width - 40) > 400
+          ? 400
+          : (MediaQuery.of(context).size.width - 40),
       child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -64,7 +64,10 @@ class _CardItemState extends State<CardRoomState> {
                   ),
                   Row(
                     children: [
-                      Text("Theo dõi",style: TextStyle(fontSize: 18),),
+                      Text(
+                        "Theo dõi",
+                        style: TextStyle(fontSize: 18),
+                      ),
                       Switch(
                         value: switchValue,
                         onChanged: (value) {

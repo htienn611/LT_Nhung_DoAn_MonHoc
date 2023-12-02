@@ -40,9 +40,9 @@ Widget buildWeatherWidget(String cityName) {
         if (weatherMain.trim().toLowerCase().contains('clouds')) {
           imageUrl = 'assets/img/cloud.png';
         } else if (weatherMain.trim().toLowerCase().contains('rain')) {
-          imageUrl = 'assets/rain.png';
+          imageUrl = 'assets/img/rain.png';
         } else {
-          imageUrl = 'assets/sun.png';
+          imageUrl = 'assets/img/sun.png';
         }
         return Column(
           children: [
