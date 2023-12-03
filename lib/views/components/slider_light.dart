@@ -28,7 +28,7 @@ class _SliderDialogState extends State<SliderDialog> {
         max: 4,
         onChanged: (value) {
           setState(() {
-            sliderValue = (value*10>5?value.ceil():value.floor())*1.0;
+            sliderValue = (value.ceil()>=4?value.floor():value.ceil())*1.0;
           });
         },
       ),
