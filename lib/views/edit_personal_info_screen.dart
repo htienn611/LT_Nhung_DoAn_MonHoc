@@ -1,14 +1,51 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// ignore: must_be_immutable
 class EditPersonalInfo extends StatefulWidget {
-  const EditPersonalInfo({super.key});
+  EditPersonalInfo({super.key, required this.id});
+  String id;
+  var data = null;
+
 
   @override
   State<EditPersonalInfo> createState() => _EditPersonalInfoState();
 }
 
 class _EditPersonalInfoState extends State<EditPersonalInfo> {
-  int groupValue = 1; //nam
+  var key;
+  String? groupValue;
+  late TextEditingController name = TextEditingController();
+  late TextEditingController email = TextEditingController();
+  late TextEditingController phone = TextEditingController();
+  late TextEditingController birthday = TextEditingController();
+
+  void queryData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Account').get();
+    List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
+    for (var element in lstDoc) {
+      if (element[key] == widget.id) {
+
+       name.text = element['Name'];
+       email.text = element['Email'];
+       phone.text = element['Phone'];
+       birthday.text = element['Birthday'];
+       groupValue = element['Sex'];
+       break;
+      }
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    key = widget.id.contains('@') ? 'Email' : 'Phone';
+    print(key);
+    queryData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +102,8 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     child: Column(
                   children: [
                     TextFormField(
+                      controller: name,
+                      keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
                           label: Text("Tên đăng nhập"),
@@ -80,7 +119,8 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     ),
                     SizedBox(height: 10),
                     TextFormField(
-                        keyboardType: TextInputType.emailAddress,
+                        controller: email,
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
                           label: Text("Email"),
@@ -98,23 +138,26 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         )),
                     SizedBox(height: 10),
                     TextFormField(
+                        controller: phone,
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                      labelStyle: TextStyle(color: Colors.black),
-                      label: Text("Số điện thoại"),
-                      prefix: Icon(Icons.call),
-                      fillColor: Color.fromRGBO(255, 255, 255, 1),
-                      filled: true,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            style: BorderStyle.solid,
-                            color: Colors.purple,
-                          ),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(50.0))),
-                    )),
+                          labelStyle: TextStyle(color: Colors.black),
+                          label: Text("Số điện thoại"),
+                          prefix: Icon(Icons.call),
+                          fillColor: Color.fromRGBO(255, 255, 255, 1),
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Colors.purple,
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50.0))),
+                        )),
                     SizedBox(height: 10),
                     TextFormField(
-                        keyboardType: TextInputType.datetime,
+                        controller: birthday,
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
                           label: Text("Ngày sinh"),
@@ -146,11 +189,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           Row(
                             children: [
                               Radio(
-                                  value: 1,
+                                  value: 'nam',
                                   groupValue: groupValue,
                                   onChanged: (value) {
                                     setState(() {
-                                      groupValue = value!;
+                                      groupValue = value!.toString();
                                     });
                                   }),
                               Text(
@@ -159,11 +202,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               ),
                               SizedBox(width: 160),
                               Radio(
-                                  value: 0,
+                                  value: 'nữ',
                                   groupValue: groupValue,
                                   onChanged: (value) {
                                     setState(() {
-                                      groupValue = value!;
+                                      groupValue = value!.toString();
                                     });
                                   }),
                               Text("Nữ", style: TextStyle(fontSize: 17)),
@@ -174,7 +217,27 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (phone.text.isEmpty && email.text.isNotEmpty ||
+                              phone.text.isNotEmpty && email.text.isEmpty ||
+                              phone.text.isNotEmpty && email.text.isNotEmpty) {
+                            Map<String, dynamic> dataToUpdate = {
+                              'Birthday': birthday.text.isNotEmpty
+                                  ? birthday.text
+                                  : null,
+                              'Name': name.text.isNotEmpty ? name.text : null,
+                              'Email':
+                                  email.text.isNotEmpty ? email.text : null,
+                              'Phone':
+                                  phone.text.isNotEmpty ? phone.text : null,
+                              'Sex': groupValue
+                            };
+                            CollectionReference collection = FirebaseFirestore
+                                .instance
+                                .collection('Account');
+                            DocumentReference document = collection.doc();
+                          } else {}
+                        },
                         child: Text(
                           "Cập nhật",
                           style: TextStyle(color: Colors.black),
