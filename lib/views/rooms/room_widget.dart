@@ -1,3 +1,4 @@
+import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -20,18 +21,16 @@ class _RoomWigetState extends State<RoomWiget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(45), // Điều chỉnh cong của góc dưới
-            ),
-          ),
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
           toolbarHeight: 130,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Phòng ${widget.title}",
-                style: TextStyle(fontSize: 35),
+                style: TextStyle(fontSize: 30, color: Colors.black),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,19 +40,28 @@ class _RoomWigetState extends State<RoomWiget> {
                       Icon(
                         Icons.thermostat_rounded,
                         size: 45,
+                        color: Colors.red,
+                        //color: double.parse(temperature) <20?Colors.blue:(double.parse(temperature)<26?Colors.amber:Colors.red),
                       ),
                       Text(
                         '24 °C',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
-                      const Text("Theo dõi", style: TextStyle(fontSize: 18)),
+                      const Text("Theo dõi",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          )),
                       Switch(
                           value: swFollow,
-                          activeColor: Colors.white,
+                          activeColor: Colors.blue,
                           onChanged: (bool? value) {
                             setState(() {
                               swFollow = value!;
@@ -65,14 +73,22 @@ class _RoomWigetState extends State<RoomWiget> {
               ),
               const Text(
                 "Thiết bị đã kết nối: 4",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18, color: Colors.black),
               ),
             ],
           ),
         ),
+        drawer: DrawerMenu(),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(5),
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.blue, Colors.purple],
+              ),
+            ),
             child: Column(
               children: [
                 Card(

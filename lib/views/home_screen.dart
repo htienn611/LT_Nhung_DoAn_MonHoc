@@ -104,21 +104,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     CardRoomState(),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     CardRoomState(),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     CardRoomState(),
                   ],
                 ),
@@ -131,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
+        index: 0,
         backgroundColor: Colors.blue,
         animationDuration: const Duration(milliseconds: 300),
         height: 50,

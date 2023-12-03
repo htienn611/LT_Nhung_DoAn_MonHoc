@@ -19,7 +19,7 @@ Future<Map<String, dynamic>> getWeather(String cityName) async {
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
-    throw Exception('Failed to load weather data');
+    throw Exception('Tải dữ liệu không thành công');
   }
 }
 
@@ -30,7 +30,7 @@ Widget buildWeatherWidget(String cityName) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
+        return Text('Lỗi: ${snapshot.error}');
       } else {
         final weatherData = snapshot.data;
         final temperature =
@@ -40,21 +40,23 @@ Widget buildWeatherWidget(String cityName) {
         if (weatherMain.trim().toLowerCase().contains('clouds')) {
           imageUrl = 'assets/img/cloud.png';
         } else if (weatherMain.trim().toLowerCase().contains('rain')) {
-          imageUrl = 'assets/rain.png';
+          imageUrl = 'assets/img/rain.png';
         } else {
-          imageUrl = 'assets/sun.png';
+          imageUrl = 'assets/img/sun.png';
         }
+       // print(imageUrl);
         return Column(
           children: [
-            Text(cityName, style: const TextStyle(fontSize: 18)),
+            Container(padding: EdgeInsets.only(bottom: 10),
+              child: Text(cityName, style: const TextStyle(fontSize: 18))),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    const Icon(
+                     Icon(
                       Icons.thermostat_rounded,
-                      color: Colors.red,
+                      color: double.parse(temperature) <20?Colors.blue:(double.parse(temperature)<26?Colors.amber:Colors.red),
                     ),
                     Text(
                       '$temperature °C',
@@ -65,7 +67,7 @@ Widget buildWeatherWidget(String cityName) {
                 Row(
                   children: [
                     Image(
-                      width: 220,
+                      width: 200,
                       image: AssetImage(imageUrl),
                       fit: BoxFit.fill,
                     ),
