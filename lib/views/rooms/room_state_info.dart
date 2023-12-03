@@ -34,8 +34,8 @@ class _CardItemState extends State<CardRoomState> {
     }
 
     return Container(
-      width: (MediaQuery.of(context).size.width - 40) < 371
-          ? 371
+      width: (MediaQuery.of(context).size.width - 40) > 400
+          ? 400
           : (MediaQuery.of(context).size.width - 40),
       child: Card(
           shape: RoundedRectangleBorder(
@@ -94,23 +94,19 @@ class _CardItemState extends State<CardRoomState> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Theo dõi",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Switch(
-                            value: switchValue,
-                            onChanged: (value) {
-                              setState(() {
-                                switchValue = value;
-                              });
-                            },
-                            activeColor: Colors.blue,
-                            inactiveThumbColor: Colors.grey.shade400,
-                          ),
-                        ],
+                      Text(
+                        "Theo dõi",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Switch(
+                        value: switchValue,
+                        onChanged: (value) {
+                          setState(() {
+                            switchValue = value;
+                          });
+                        },
+                        activeColor: Colors.blue,
+                        inactiveThumbColor: Colors.grey.shade400,
                       ),
                       Container(
                           decoration: BoxDecoration(
