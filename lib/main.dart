@@ -27,12 +27,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+  
         debugShowCheckedModeBanner: false,
         title: 'AppHome',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: 'Verdana',
         ),
-        home: EditPersonalInfo(id: "0395060907",));
+        home: Scaffold()
+    );
   }
 }

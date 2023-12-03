@@ -3,13 +3,45 @@ import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:doan_monhoc/views/room_device_screen.dart';
 import 'package:flutter/material.dart';
+class YesNoDialog extends StatelessWidget {
+  final String title;
+  final String content;
 
+  YesNoDialog({required this.title, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(title),
+      content: Text(content),
+      actions: [
+        // Nút "Có"
+        TextButton(
+          onPressed: () {
+            // Xử lý khi người dùng chọn "Có"
+            Navigator.of(context).pop(true);
+          },
+          child: Text('Có'),
+        ),
+        // Nút "Không"
+        TextButton(
+          onPressed: () {
+            // Xử lý khi người dùng chọn "Không"
+            Navigator.of(context).pop(false);
+          },
+          child: Text('Không'),
+        ),
+      ],
+    );
+  }
+}
 class DrawerMenu extends StatefulWidget {
   DrawerMenu({Key? key}) : super(key: key);
 
   @override
   State<DrawerMenu> createState() => _DrawerMenuState();
 }
+
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
@@ -96,12 +128,26 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ListTile(
               leading: const Icon(Icons.logout_outlined),
               title: const Text("Đăng xuất"),
-              onTap: () {
+              onTap: () async {
+                 bool result = await showDialog(
+                context: context,
+                builder: (context) => YesNoDialog(
+                  title: 'Xác nhận',
+                  content: 'Bạn có chắc chắn muốn thoát?',
+                ),
+              );
+
+              // Xử lý kết quả từ hộp thoại
+              if (result == true) {
                 Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const LoginScreen()));
+              } else {
+                
+              }
+                
               },
             ),
           ],
