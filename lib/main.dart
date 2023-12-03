@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Verdana',
         ),
-        home: Scaffold()
+        home: LoginScreen()
     );
   }
 }

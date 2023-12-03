@@ -12,7 +12,7 @@ class CardRoomState extends StatefulWidget {
 
 class _CardItemState extends State<CardRoomState> {
   bool switchValue = true;
-  double sliderValue = 5.0;
+  double sliderValue = 4.0;
 
   @override
   Widget build(BuildContext context) {
