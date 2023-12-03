@@ -158,7 +158,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()))
+                                builder: (context) => HomeScreen(unit: phoneController.text)))
                         : "";
                     } );
                     setState(() {
@@ -210,6 +210,8 @@ class LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+
   @override
   initState() {
     super.initState();

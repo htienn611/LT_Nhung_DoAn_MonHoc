@@ -67,7 +67,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                        builder: (context) =>  HomeScreen(unit: "",)));
               },
             ),
             ListTile(
@@ -122,7 +122,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               title: const Text("Tài khoản"),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Info()));
+                    MaterialPageRoute(builder: (context) =>  Info(unit: "",)));
               },
             ),
             ListTile(
