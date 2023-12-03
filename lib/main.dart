@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Verdana',
         ),
-        home: FogotPassScreen());
+        home: Scaffold()
+    );
   }
 }
