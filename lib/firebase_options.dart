@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '457047554936',
     projectId: 'smarthomeapp-b0059',
     authDomain: 'smarthomeapp-b0059.firebaseapp.com',
+    databaseURL: 'https://smarthomeapp-b0059-default-rtdb.firebaseio.com',
     storageBucket: 'smarthomeapp-b0059.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:457047554936:android:553ef93ec2b4f24bcce68d',
     messagingSenderId: '457047554936',
     projectId: 'smarthomeapp-b0059',
+    databaseURL: 'https://smarthomeapp-b0059-default-rtdb.firebaseio.com',
     storageBucket: 'smarthomeapp-b0059.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:457047554936:ios:3a40cea08fe311b8cce68d',
     messagingSenderId: '457047554936',
     projectId: 'smarthomeapp-b0059',
+    databaseURL: 'https://smarthomeapp-b0059-default-rtdb.firebaseio.com',
     storageBucket: 'smarthomeapp-b0059.appspot.com',
     androidClientId: '457047554936-qjbo3jfpds8pi51m9g31h1qqitedu4ev.apps.googleusercontent.com',
     iosClientId: '457047554936-2pug4s40sjpkk9r1j2i2bkrigtbm9gbk.apps.googleusercontent.com',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:457047554936:ios:3a40cea08fe311b8cce68d',
     messagingSenderId: '457047554936',
     projectId: 'smarthomeapp-b0059',
+    databaseURL: 'https://smarthomeapp-b0059-default-rtdb.firebaseio.com',
     storageBucket: 'smarthomeapp-b0059.appspot.com',
     androidClientId: '457047554936-qjbo3jfpds8pi51m9g31h1qqitedu4ev.apps.googleusercontent.com',
     iosClientId: '457047554936-2pug4s40sjpkk9r1j2i2bkrigtbm9gbk.apps.googleusercontent.com',

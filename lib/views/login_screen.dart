@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_monhoc/views/forgot_pass_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,10 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 
+CollectionReference _referenceAccountList =
+    FirebaseFirestore.instance.collection('Account');
+late Stream<QuerySnapshot> _streamAccountItems;
+
 class LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -22,26 +28,42 @@ class LoginScreenState extends State<LoginScreen> {
   bool _isRemembered = false;
   bool obscurePassword = true;
   String _errorMessage = '';
-
-  Future<void> _signIn() async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: phoneController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      print('Đăng nhập thành công: ${userCredential.user!.uid}');
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        _errorMessage = 'Đăng nhập thất bại: ${e.message}';
-      });
+  bool loginsucces = false;
+ Future<void> _signIn(String phoneNumber,String Password) async {
+  // Kết nối đến Firebase
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+ 
+  try {
+    // Truy vấn dữ liệu từ collection 'account'
+    QuerySnapshot querySnapshot = await firestore.collection('Account').get();
+   String key = phoneNumber.contains('@')?'Email':'Phone';
+    // Duyệt qua từng document trong collection
+    for (QueryDocumentSnapshot document in querySnapshot.docs) {
+      // Lấy dữ liệu từ field 'sdt' trong mỗi document
+      // print(document.get(field));
+     
+      String phoneNumberFromFirebase = document.get(key);
+      // print(phoneNumber+" "+phoneNumberFromFirebase);
+      String passwordFromFirebase=document.get('Password');
+      // print(Password+" "+passwordFromFirebase);
+      // So sánh với số điện thoại nhập từ ứng dụng
+      if (phoneNumber == phoneNumberFromFirebase&&Password==passwordFromFirebase) {
+        loginsucces= true;
+        break;
+      }
     }
+    _errorMessage="Nhập sai SĐT/email hoặc mật khẩu";
+    // Số điện thoại không khớp, thực hiện các hành động bạn muốn ở đây
+  } catch (e) {
+    print('Lỗi khi truy vấn dữ liệu: $e');
+    loginsucces= false;
   }
+}
 
-  // Future<User?>
-  signInWithGoogle() async {
-    // await GoogleSignIn().signOut();
-    // FirebaseAuth.instance.signOut();
+
+  Future<User?> signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    FirebaseAuth.instance.signOut();
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
@@ -131,9 +153,17 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    //signInWithGoogle();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    _signIn(phoneController.text,passwordController.text).then((value){
+                      loginsucces == true
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()))
+                        : "";
+                    } );
+                    setState(() {
+                      
+                    });
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -150,7 +180,7 @@ class LoginScreenState extends State<LoginScreen> {
                 const Padding(padding: EdgeInsets.all(5)),
                 Text(
                   _errorMessage,
-                  style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+                  style: const TextStyle(fontSize: 15, color: Colors.redAccent),textAlign:TextAlign.center ,
                 ),
                 TextButton(
                   onPressed: () {
@@ -179,5 +209,10 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  @override
+  initState() {
+    super.initState();
+    _streamAccountItems = _referenceAccountList.snapshots();
   }
 }
