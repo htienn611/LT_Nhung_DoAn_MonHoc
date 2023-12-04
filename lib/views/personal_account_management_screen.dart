@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:doan_monhoc/views/edit_personal_info_screen.dart';
 import 'package:doan_monhoc/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,18 +8,54 @@ import 'components/drawer_menu.dart';
 import 'components/title_info.dart';
 
 class Info extends StatefulWidget {
-  const Info({super.key});
+   Info({super.key,required this.unit});
+   String unit;
   @override
   State<Info> createState() => _InfoState();
 }
+var key;
+TextEditingController name=TextEditingController();
+TextEditingController phone=TextEditingController();
+TextEditingController sex=TextEditingController();
+TextEditingController birthday=TextEditingController();
+TextEditingController emai=TextEditingController();
 
 class _InfoState extends State<Info> {
+  
+void queryData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Account').get();
+    List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
+    for (var element in lstDoc) {
+      if (element[key] == widget.unit) {
+        name.text = element['Name'];
+        phone.text=element['Phone'];
+        sex.text=element['Sex'];
+        birthday.text=element['Birthday'];
+        emai.text=element['Email'];
+        break;
+      }
+    }
+    setState(() {
+      
+    });
+  }
+    void initState() {
+    super.initState();
+    key = widget.unit.contains('@') ? 'Email' : 'Phone';
+    queryData();
+  }
+ 
+
   @override
   Widget build(BuildContext context) {
+    //print(widget.unit);
+        print(name.text);
+
     double avtW = ((MediaQuery.of(context).size.width - 20) * 1.2 / 3) > 160
         ? 200
         : (MediaQuery.of(context).size.width - 20) * 1.2 / 3;
-    print(avtW);
+    //print(avtW);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -31,7 +69,12 @@ class _InfoState extends State<Info> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>EditPersonalInfo(id: widget.unit) ),
+              );
+            },
             icon: Icon(Icons.edit),
             tooltip: "Chỉnh sửa thông tin",
           )
@@ -84,21 +127,21 @@ class _InfoState extends State<Info> {
                   InfoTitle(
                       icon: Icons.phone,
                       title: "Họ tên",
-                      value: "Mai Nguyễn Hoàng Lộc"),
+                      value: name.text),
                   InfoTitle(
-                      icon: Icons.phone, title: "0342154512", value: "Di Động"),
+                      icon: Icons.phone, title: "Di Động", value: phone.text),
                   InfoTitle(
                       icon: Icons.account_circle,
                       title: "Giới Tính",
-                      value: "Nam"),
+                      value: sex.text),
                   InfoTitle(
                       icon: Icons.cake_rounded,
                       title: "Sinh Nhật",
-                      value: "04 tháng 11 2003"),
+                      value: birthday.text),
                   InfoTitle(
                       icon: Icons.email_rounded,
                       title: "Email",
-                      value: "04 tháng 11 2003"),
+                      value: emai.text),
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: ElevatedButton(
@@ -147,7 +190,7 @@ class _InfoState extends State<Info> {
             onPressed: (){
                Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) =>  HomeScreen(unit: "",)),
               );
             },
             icon: const Icon(Icons.home, color: Colors.grey),
@@ -160,7 +203,7 @@ class _InfoState extends State<Info> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Info()),
+                MaterialPageRoute(builder: (context) =>  Info(unit: "",)),
               );
             },
             icon: const Icon(color: Colors.grey, Icons.account_circle_outlined),

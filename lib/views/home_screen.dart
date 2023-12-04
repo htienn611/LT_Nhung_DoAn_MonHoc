@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:doan_monhoc/api/model/data.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
+import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../api/model/rooms.dart';
@@ -10,13 +13,39 @@ import 'rooms/room_state_info.dart';
 
 /////
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key, required this.unit});
+  String unit;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+var key;
+TextEditingController name = TextEditingController();
+
 class _HomeScreenState extends State<HomeScreen> {
+  void queryData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Account').get();
+    List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
+    for (var element in lstDoc) {
+      if (element[key] == widget.unit) {
+        name.text = element['Name'];
+        print(name.text);
+        break;
+      }
+    }
+    setState(() {
+      
+    });
+  }
+
+  void initState() {
+    super.initState();
+    key = widget.unit.contains('@') ? 'Email' : 'Phone';
+    print(key);
+    queryData();
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Room> lstR = List.filled(0, Room("", true, List.empty()));
   void loadData() async {
@@ -36,6 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     //print(lstR);
   //  print(lstR.length);
+
+    print(widget.unit);
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -83,19 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Xin chào",
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                        ),
-                        Text(
-                          "Mai Nguyễn Hoàng Lộc",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ],
+                      children: [Text('Xin chào! ${name.text}',style: TextStyle(color: Colors.white,fontSize: 18),)],
                     ),
                     IconButton(
                       onPressed: () {
@@ -128,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
               )
             ],
+
           ),
         ),
       ),
@@ -149,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Info()),
+                MaterialPageRoute(builder: (context) =>  Info(unit: widget.unit,)),
               );
             },
             icon: const Icon(color: Colors.grey, Icons.account_circle_outlined),

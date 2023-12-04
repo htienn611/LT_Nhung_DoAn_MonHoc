@@ -157,11 +157,14 @@ class LoginScreenState extends State<LoginScreen> {
                     _signIn(phoneController.text, passwordController.text)
                         .then((value) {
                       loginsucces == true
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()))
-                          : "";
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen(unit: phoneController.text)))
+                        : "";
+                    } );
+                    setState(() {
+                      
                     });
                     setState(() {});
                   },
@@ -211,7 +214,6 @@ class LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
   @override
   initState() {
     super.initState();
