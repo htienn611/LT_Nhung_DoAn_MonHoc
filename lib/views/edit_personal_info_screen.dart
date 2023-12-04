@@ -9,7 +9,6 @@ class EditPersonalInfo extends StatefulWidget {
   String id;
   var data = null;
 
-
   @override
   State<EditPersonalInfo> createState() => _EditPersonalInfoState();
 }
@@ -22,25 +21,28 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
   late TextEditingController phone = TextEditingController();
   late TextEditingController birthday = TextEditingController();
 
-  void queryData() async {
+  Future<String?> queryData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
+    String? idElement;
     for (var element in lstDoc) {
       if (element[key] == widget.id) {
-
-       name.text = element['Name'];
-       email.text = element['Email'];
-       phone.text = element['Phone'];
-       birthday.text = element['Birthday'];
-       groupValue = element['Sex'];
-       break;
+        name.text = element['Name'];
+        email.text = element['Email'];
+        phone.text = element['Phone'];
+        birthday.text = element['Birthday'];
+        groupValue = element['Sex'];
+        idElement = element.id;
+        break;
       }
     }
+    print(idElement);
+    return idElement.toString();
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     key = widget.id.contains('@') ? 'Email' : 'Phone';
     print(key);
@@ -217,7 +219,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (phone.text.isEmpty && email.text.isNotEmpty ||
                               phone.text.isNotEmpty && email.text.isEmpty ||
                               phone.text.isNotEmpty && email.text.isNotEmpty) {
@@ -232,11 +234,22 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   phone.text.isNotEmpty ? phone.text : null,
                               'Sex': groupValue
                             };
-                            CollectionReference collection = FirebaseFirestore
-                                .instance
-                                .collection('Account');
-                            DocumentReference document = collection.doc();
-                          } else {}
+                            String? idDoc = await queryData();
+                            if (idDoc != null) {
+                              print(idDoc.toString());
+                              CollectionReference collect = FirebaseFirestore
+                                  .instance
+                                  .collection('Account');
+                              DocumentReference document =
+                                  collect.doc(idDoc.toString());
+                              document.update(dataToUpdate);
+                            } else {
+                              print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
+                            }
+                            setState(() {
+                              queryData();
+                            });
+                          }
                         },
                         child: Text(
                           "Cập nhật",
