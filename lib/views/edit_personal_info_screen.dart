@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class EditPersonalInfo extends StatefulWidget {
   EditPersonalInfo({super.key, required this.id});
   String id;
-  var data = null;
 
   @override
   State<EditPersonalInfo> createState() => _EditPersonalInfoState();
@@ -33,10 +32,15 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
         phone.text = element['Phone'];
         birthday.text = element['Birthday'];
         groupValue = element['Sex'];
+
         idElement = element.id;
         break;
       }
+      setState(() {
+        
+      });
     }
+
     print(idElement);
     return idElement.toString();
   }
@@ -45,12 +49,14 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
   void initState() {
     super.initState();
     key = widget.id.contains('@') ? 'Email' : 'Phone';
-    print(key);
+    // print(key);
     queryData();
   }
 
   @override
   Widget build(BuildContext context) {
+    //print("a");
+    //print(widget.id);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Trang chỉnh sửa thông tin")),

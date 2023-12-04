@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:doan_monhoc/api/model/data.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
-import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
-        print(name.text);
         break;
       }
     }
@@ -55,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
-    print(key);
+
     queryData();
     loadData();
     DatabaseReference reference = FirebaseDatabase.instance.reference();
@@ -66,9 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //print(lstR);
-    //  print(lstR.length);
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
