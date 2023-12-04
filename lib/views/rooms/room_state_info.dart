@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../api/model/rooms.dart';
 import '../components/slider_light.dart';
 
-///////////////////////
 class CardRoomState extends StatefulWidget {
-  const CardRoomState({super.key});
-
+  CardRoomState({super.key,required this.room});
+  Room room;
   @override
   State<CardRoomState> createState() => _CardItemState();
 }
 
 class _CardItemState extends State<CardRoomState> {
-  bool switchValue = true;
   double sliderValue = 4.0;
 
   @override
@@ -61,9 +60,9 @@ class _CardItemState extends State<CardRoomState> {
                           ),
                           Container(
                             padding: const EdgeInsets.only(bottom: 5, left: 5),
-                            child: const Text(
-                              "Phòng khách",
-                              style: TextStyle(
+                            child:Text(
+                              widget.room.name,
+                              style:const TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -87,10 +86,15 @@ class _CardItemState extends State<CardRoomState> {
                       ),
                     ],
                   ),
-                  const Text(
-                    "4 thiết bị kết nối",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                   Row(
+                     children: [
+                      Text(widget.room.lstDevice.length.toString()),
+                       Text(
+                        " thiết bị kết nối",
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
+                     ],
+                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -99,10 +103,10 @@ class _CardItemState extends State<CardRoomState> {
                         style: TextStyle(fontSize: 18),
                       ),
                       Switch(
-                        value: switchValue,
+                        value: widget.room.follow,
                         onChanged: (value) {
                           setState(() {
-                            switchValue = value;
+                            widget.room.follow = value;
                           });
                         },
                         activeColor: Colors.blue,

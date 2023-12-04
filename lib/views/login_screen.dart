@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../api/model/data.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,37 +30,37 @@ class LoginScreenState extends State<LoginScreen> {
   bool obscurePassword = true;
   String _errorMessage = '';
   bool loginsucces = false;
- Future<void> _signIn(String phoneNumber,String Password) async {
-  // Kết nối đến Firebase
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
- 
-  try {
-    // Truy vấn dữ liệu từ collection 'account'
-    QuerySnapshot querySnapshot = await firestore.collection('Account').get();
-   String key = phoneNumber.contains('@')?'Email':'Phone';
-    // Duyệt qua từng document trong collection
-    for (QueryDocumentSnapshot document in querySnapshot.docs) {
-      // Lấy dữ liệu từ field 'sdt' trong mỗi document
-      // print(document.get(field));
-     
-      String phoneNumberFromFirebase = document.get(key);
-      // print(phoneNumber+" "+phoneNumberFromFirebase);
-      String passwordFromFirebase=document.get('Password');
-      // print(Password+" "+passwordFromFirebase);
-      // So sánh với số điện thoại nhập từ ứng dụng
-      if (phoneNumber == phoneNumberFromFirebase&&Password==passwordFromFirebase) {
-        loginsucces= true;
-        break;
-      }
-    }
-    _errorMessage="Nhập sai SĐT/email hoặc mật khẩu";
-    // Số điện thoại không khớp, thực hiện các hành động bạn muốn ở đây
-  } catch (e) {
-    print('Lỗi khi truy vấn dữ liệu: $e');
-    loginsucces= false;
-  }
-}
+  Future<void> _signIn(String phoneNumber, String Password) async {
+    // Kết nối đến Firebase
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+    try {
+      // Truy vấn dữ liệu từ collection 'account'
+      QuerySnapshot querySnapshot = await firestore.collection('Account').get();
+      String key = phoneNumber.contains('@') ? 'Email' : 'Phone';
+      // Duyệt qua từng document trong collection
+      for (QueryDocumentSnapshot document in querySnapshot.docs) {
+        // Lấy dữ liệu từ field 'sdt' trong mỗi document
+        // print(document.get(field));
+
+        String phoneNumberFromFirebase = document.get(key);
+        // print(phoneNumber+" "+phoneNumberFromFirebase);
+        String passwordFromFirebase = document.get('Password');
+        // print(Password+" "+passwordFromFirebase);
+        // So sánh với số điện thoại nhập từ ứng dụng
+        if (phoneNumber == phoneNumberFromFirebase &&
+            Password == passwordFromFirebase) {
+          loginsucces = true;
+          break;
+        }
+      }
+      _errorMessage = "Nhập sai SĐT/email hoặc mật khẩu";
+      // Số điện thoại không khớp, thực hiện các hành động bạn muốn ở đây
+    } catch (e) {
+      print('Lỗi khi truy vấn dữ liệu: $e');
+      loginsucces = false;
+    }
+  }
 
   Future<User?> signInWithGoogle() async {
     await GoogleSignIn().signOut();
@@ -153,17 +154,16 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _signIn(phoneController.text,passwordController.text).then((value){
+                    _signIn(phoneController.text, passwordController.text)
+                        .then((value) {
                       loginsucces == true
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()))
-                        : "";
-                    } );
-                    setState(() {
-                      
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()))
+                          : "";
                     });
+                    setState(() {});
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -180,7 +180,8 @@ class LoginScreenState extends State<LoginScreen> {
                 const Padding(padding: EdgeInsets.all(5)),
                 Text(
                   _errorMessage,
-                  style: const TextStyle(fontSize: 15, color: Colors.redAccent),textAlign:TextAlign.center ,
+                  style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+                  textAlign: TextAlign.center,
                 ),
                 TextButton(
                   onPressed: () {
@@ -210,6 +211,7 @@ class LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
   @override
   initState() {
     super.initState();

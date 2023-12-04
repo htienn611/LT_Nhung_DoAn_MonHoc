@@ -1,8 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:doan_monhoc/api/model/data.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../api/model/rooms.dart';
 import 'components/weather.dart';
 import 'rooms/room_state_info.dart';
 
@@ -16,18 +18,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Room> lstR = List.filled(0, Room("", true, List.empty()));
+  void loadData() async {
+    Data.loadData().then((value) {
+      lstR = Data.lstRoom;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    //print(lstR);
+  //  print(lstR.length);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        // leading: IconButton(
-        //   icon: Icon(Icons.more_vert), // Thay đổi biểu tượng ở đây
-        //   onPressed: () {
-        //     // Mở Drawer khi biểu tượng được nhấn
-        //     _scaffoldKey.currentState?.openDrawer();
-        //   },
-        // ),
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(size: 25.0),
@@ -50,22 +61,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: DrawerMenu(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue, Colors.purple],
-            ),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blue, Colors.purple],
           ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
+        ),
+        height: MediaQuery.of(context).size.height,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -96,37 +109,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                // Thông tin thời tiết nhiệt độ
-                const CardWeather(),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
-                    CardRoomState(),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
-                    CardRoomState(),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
-                    CardRoomState(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
+              ),
+              // Thông tin thời tiết nhiệt độ
+              Expanded(
+                flex: 4,
+                child: const CardWeather(),
+              ),
+              Expanded(
+                flex: 7,
+                child: ListView.builder(
+                    itemCount: lstR.length,
+                    itemBuilder: (context, index) {
+                      return lstR[index].follow
+                          ? CardRoomState(
+                              room: lstR[index],
+                            )
+                          : Text("");
+                    }),
+              )
+            ],
           ),
         ),
       ),
