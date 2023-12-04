@@ -35,8 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       }
     }
-    setState(() {});
-
+    setState(() {
+      
+    });
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -54,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
-
     print(key);
     queryData();
     loadData();
