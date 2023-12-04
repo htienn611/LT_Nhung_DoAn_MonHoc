@@ -20,10 +20,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
   late TextEditingController phone = TextEditingController();
   late TextEditingController birthday = TextEditingController();
 
-  void queryData() async {
+  Future<String?> queryData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
+    String? idElement;
     for (var element in lstDoc) {
       if (element[key] == widget.id) {
         name.text = element['Name'];
@@ -31,13 +32,17 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
         phone.text = element['Phone'];
         birthday.text = element['Birthday'];
         groupValue = element['Sex'];
+
+        idElement = element.id;
         break;
       }
       setState(() {
         
       });
     }
-    
+
+    print(idElement);
+    return idElement.toString();
   }
 
   @override
@@ -126,7 +131,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   style: BorderStyle.solid,
                                 ),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)))),
+                                    BorderRadius.all(Radius.circular(10.0)))),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -149,7 +154,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               color: Colors.purple,
                             ),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(50.0)),
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                         )),
                     SizedBox(height: 10),
@@ -172,7 +177,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 color: Colors.purple,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                         )),
                     SizedBox(height: 10),
                     TextFormField(
@@ -194,12 +199,12 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 color: Colors.purple,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                         )),
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               color: Colors.white, style: BorderStyle.solid),
                           color: Colors.white),
@@ -242,7 +247,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (phone.text.isEmpty && email.text.isNotEmpty ||
                               phone.text.isNotEmpty && email.text.isEmpty ||
                               phone.text.isNotEmpty && email.text.isNotEmpty) {
@@ -257,11 +262,22 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   phone.text.isNotEmpty ? phone.text : null,
                               'Sex': groupValue
                             };
-                            CollectionReference collection = FirebaseFirestore
-                                .instance
-                                .collection('Account');
-                            DocumentReference document = collection.doc();
-                          } else {}
+                            String? idDoc = await queryData();
+                            if (idDoc != null) {
+                              print(idDoc.toString());
+                              CollectionReference collect = FirebaseFirestore
+                                  .instance
+                                  .collection('Account');
+                              DocumentReference document =
+                                  collect.doc(idDoc.toString());
+                              document.update(dataToUpdate);
+                            } else {
+                              print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
+                            }
+                            setState(() {
+                              queryData();
+                            });
+                          }
                         },
                         child: Text(
                           "Cập nhật",
