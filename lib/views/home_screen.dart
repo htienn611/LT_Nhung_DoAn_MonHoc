@@ -5,6 +5,7 @@ import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../api/model/rooms.dart';
@@ -34,23 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       }
     }
-    setState(() {
-      
-    });
-  }
-
-  void initState() {
-    super.initState();
-    key = widget.unit.contains('@') ? 'Email' : 'Phone';
-    print(key);
-    queryData();
+    setState(() {});
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Room> lstR = List.filled(0, Room("", true, List.empty()));
   void loadData() async {
     Data.loadData().then((value) {
-      lstR = Data.lstRoom;
+      setState(() {
+        lstR = Data.lstRoom;
+      });
     });
   }
 
@@ -58,15 +52,20 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    key = widget.unit.contains('@') ? 'Email' : 'Phone';
+    print(key);
+    queryData();
     loadData();
+    DatabaseReference reference = FirebaseDatabase.instance.reference();
+    reference.onValue.listen((event) {
+      loadData();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     //print(lstR);
-  //  print(lstR.length);
-
-    print(widget.unit);
+    //  print(lstR.length);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -115,7 +114,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('Xin chào! ${name.text}',style: TextStyle(color: Colors.white,fontSize: 18),)],
+                      children: [
+                        Text(
+                          'Xin chào! ${name.text}',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )
+                      ],
                     ),
                     IconButton(
                       onPressed: () {
@@ -148,7 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
               )
             ],
-
           ),
         ),
       ),
@@ -170,7 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  Info(unit: widget.unit,)),
+                MaterialPageRoute(
+                    builder: (context) => Info(
+                          unit: widget.unit,
+                        )),
               );
             },
             icon: const Icon(color: Colors.grey, Icons.account_circle_outlined),
