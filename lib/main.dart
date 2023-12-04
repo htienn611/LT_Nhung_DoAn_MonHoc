@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Verdana',
         ),
-        home: EditPersonalInfo(
-          id: "0395060907",
-        ));
+        home: LoginScreen()
+    );
+
   }
 }

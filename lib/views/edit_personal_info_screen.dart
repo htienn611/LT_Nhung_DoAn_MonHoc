@@ -103,21 +103,30 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                 Form(
                     child: Column(
                   children: [
-                    TextFormField(
-                      controller: name,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                          labelStyle: TextStyle(color: Colors.black),
-                          label: Text("Tên đăng nhập"),
-                          prefix: Icon(Icons.account_circle),
-                          fillColor: Color.fromRGBO(255, 255, 255, 1),
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)))),
+                    SizedBox(height: 10),
+                    Container(
+                      child: TextFormField(
+                        controller: name,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                            labelStyle: TextStyle(color: Colors.black),
+                            label: Text(
+                              "Họ và tên",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            prefix: Icon(Icons.account_circle),
+                            fillColor: Color.fromRGBO(255, 255, 255, 1),
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  style: BorderStyle.solid,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)))),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextFormField(
@@ -125,7 +134,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          label: Text("Email"),
+                          label: Text("Email",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
                           prefix: Icon(Icons.email),
                           fillColor: Color.fromRGBO(255, 255, 255, 1),
                           filled: true,
@@ -135,7 +148,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               color: Colors.purple,
                             ),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(50.0)),
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                         )),
                     SizedBox(height: 10),
@@ -144,7 +157,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          label: Text("Số điện thoại"),
+                          label: Text("Số điện thoại",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
                           prefix: Icon(Icons.call),
                           fillColor: Color.fromRGBO(255, 255, 255, 1),
                           filled: true,
@@ -154,7 +171,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 color: Colors.purple,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                         )),
                     SizedBox(height: 10),
                     TextFormField(
@@ -162,7 +179,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          label: Text("Ngày sinh"),
+                          label: Text("Ngày sinh",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
                           prefix: Icon(Icons.calendar_month),
                           fillColor: Color.fromRGBO(255, 255, 255, 1),
                           filled: true,
@@ -172,12 +193,12 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 color: Colors.purple,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                         )),
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               color: Colors.white, style: BorderStyle.solid),
                           color: Colors.white),
@@ -185,7 +206,8 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         children: [
                           Text(
                             "Giới tính",
-                            style: TextStyle(fontSize: 17),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.start,
                           ),
                           Row(
@@ -253,7 +275,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         },
                         child: Text(
                           "Cập nhật",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ))
                   ],
                 ))
