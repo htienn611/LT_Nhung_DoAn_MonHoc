@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
-        print(name.text);
         break;
       }
     }
@@ -53,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
-    print(key);
     queryData();
     loadData();
     DatabaseReference reference = FirebaseDatabase.instance.reference();
@@ -64,9 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //print(lstR);
-    //  print(lstR.length);
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(

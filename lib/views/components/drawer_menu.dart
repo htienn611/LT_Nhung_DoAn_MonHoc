@@ -3,6 +3,7 @@ import 'package:doan_monhoc/views/login_screen.dart';
 import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:doan_monhoc/views/room_device_screen.dart';
 import 'package:flutter/material.dart';
+
 class YesNoDialog extends StatelessWidget {
   final String title;
   final String content;
@@ -35,13 +36,13 @@ class YesNoDialog extends StatelessWidget {
     );
   }
 }
+
 class DrawerMenu extends StatefulWidget {
   DrawerMenu({Key? key}) : super(key: key);
 
   @override
   State<DrawerMenu> createState() => _DrawerMenuState();
 }
-
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
@@ -67,7 +68,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  HomeScreen(unit: "",)));
+                        builder: (context) => HomeScreen(
+                              unit: "",
+                            )));
               },
             ),
             ListTile(
@@ -91,28 +94,52 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice()));
+                                builder: (context) => RoomDevice(
+                                      idx: 0,
+                                    )));
                       },
                     ),
                     ListTile(
                       leading: const Icon(Icons.restaurant),
                       title: const Text("Phòng ăn"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RoomDevice(
+                                      idx: 1,
+                                    )));
+                      },
                     ),
                     ListTile(
                       leading: const Icon(Icons.bed),
                       title: const Text("Phòng ngủ"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RoomDevice(idx: 2,)));
+                      },
                     ),
                     ListTile(
                       leading: const Icon(Icons.shower),
                       title: const Text("Phòng vệ sinh"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RoomDevice(idx: 3,)));
+                      },
                     ),
                     ListTile(
                       leading: const Icon(Icons.grass),
                       title: const Text("Khu vực sân"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RoomDevice(idx: 4,)));
+                      },
                     ),
                   ],
                 ),
@@ -121,33 +148,32 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Tài khoản"),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>  Info(unit: "",)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Info(
+                              unit: "",
+                            )));
               },
             ),
             ListTile(
               leading: const Icon(Icons.logout_outlined),
               title: const Text("Đăng xuất"),
               onTap: () async {
-                 bool result = await showDialog(
-                context: context,
-                builder: (context) => YesNoDialog(
-                  title: 'Xác nhận',
-                  content: 'Bạn có chắc chắn muốn thoát?',
-                ),
-              );
+                bool result = await showDialog(
+                  context: context,
+                  builder: (context) => YesNoDialog(
+                    title: 'Xác nhận',
+                    content: 'Bạn có chắc chắn muốn thoát?',
+                  ),
+                );
 
-              // Xử lý kết quả từ hộp thoại
-              if (result == true) {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
-              } else {
-                
-              }
-                
+                // Xử lý kết quả từ hộp thoại
+                if (result == true) {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                } else {}
               },
             ),
           ],

@@ -1,35 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:doan_monhoc/views/rooms/device_state.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../api/model/rooms.dart';
+
 // ignore: must_be_immutable
 class RoomWiget extends StatefulWidget {
-  RoomWiget({super.key, required this.title});
-  String title;
-  bool swFollow = true;
+  RoomWiget({super.key, required this.room});
+  Room room;
   @override
   State<RoomWiget> createState() => _RoomWigetState();
 }
 
 class _RoomWigetState extends State<RoomWiget> {
-  //  Future<List<String>> getData() async {
-  //   // Lấy dữ liệu từ Firestore
-  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('your_collection').get();
-
-  //   // Lấy giá trị của trường 'field_name' từ mỗi tài liệu
-  //   List<String> data = [];
-  //   for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-  //     if (documentSnapshot.data().containsKey('field_name')) {
-  //       data.add(documentSnapshot['field_name']);
-  //     }
-  //   }
-
-  //   return data;
-  // }
   @override
   Widget build(BuildContext context) {
+    // final List<DeviceState> devices = List.filled(
+    //     0, DeviceState(dv: Device("", false, 0, "")),
+    //     growable: true);
+    // final List<Device> lstR = widget.room.lstDevice;
+    // for (int i = 0; i < lstR.length; i++) {
+    //   setState(() {
+    //     devices.add(DeviceState(dv: widget.room.lstDevice[i]));
+    //   });
+    // }
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
@@ -40,7 +38,7 @@ class _RoomWigetState extends State<RoomWiget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Phòng ${widget.title}",
+                widget.room.name,
                 style: TextStyle(fontSize: 30, color: Colors.black),
               ),
               Row(
@@ -71,41 +69,46 @@ class _RoomWigetState extends State<RoomWiget> {
                             color: Colors.black,
                           )),
                       Switch(
-                          value: widget.swFollow,
+                          value: widget.room.follow,
                           activeColor: Colors.blue,
                           onChanged: (bool? value) {
                             setState(() {
-                              widget.swFollow = value!;
+                              widget.room.follow = value!;
                             });
                           }),
                     ],
                   ),
                 ],
               ),
-              const Text(
-                "Thiết bị đã kết nối: 4",
+              Text(
+                "Thiết bị đã kết nối: ${widget.room.lstDevice.length.toString()}",
                 style: TextStyle(fontSize: 18, color: Colors.black),
               ),
             ],
           ),
         ),
         drawer: DrawerMenu(),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.blue, Colors.purple],
-              ),
+        body: Container(
+          padding: const EdgeInsets.all(20.0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue, Colors.purple],
             ),
-            child: Column(
-              children: [
-                DeviceState(),
-                DeviceState(),
-                DeviceState(),
-                Card(
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                  child: ListView.builder(
+                      itemCount: widget.room.lstDevice.length,
+                      itemBuilder: (context, index) {
+                        return DeviceState(dv: widget.room.lstDevice[index]);
+                      })),
+              Expanded(
+                flex: 1,
+                child: Card(
                   child: Container(
                     height: 50,
                     padding: const EdgeInsets.only(left: 10),
@@ -123,32 +126,34 @@ class _RoomWigetState extends State<RoomWiget> {
                     ),
                   ),
                 ),
-                Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        child: const Text(
-                          "Hình ảnh phòng:",
-                          style: TextStyle(fontSize: 18),
-                        ),
+              ),
+              Expanded(
+                flex: 4,
+                  child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        "Hình ảnh phòng:",
+                        style: TextStyle(fontSize: 18),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 10,
-                        child: CarouselSlider.builder(
-                          options: CarouselOptions(autoPlay: true),
-                          itemCount: lstImg.length,
-                          itemBuilder: (BuildContext context, int itemIndex,
-                                  int pageViewIndex) =>
-                              SizedBox(child: Image.asset(lstImg[itemIndex])),
-                        ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 10,
+                      child: CarouselSlider.builder(
+                        options: CarouselOptions(autoPlay: true),
+                        itemCount: lstImg.length,
+                        itemBuilder: (BuildContext context, int itemIndex,
+                                int pageViewIndex) =>
+                            SizedBox(child: Image.asset(lstImg[itemIndex])),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              ))
+            ],
           ),
         ));
   }

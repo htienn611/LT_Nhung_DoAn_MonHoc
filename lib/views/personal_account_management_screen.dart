@@ -8,54 +8,51 @@ import 'components/drawer_menu.dart';
 import 'components/title_info.dart';
 
 class Info extends StatefulWidget {
-   Info({super.key,required this.unit});
-   String unit;
+  Info({super.key, required this.unit});
+  String unit;
   @override
   State<Info> createState() => _InfoState();
 }
+
 var key;
-TextEditingController name=TextEditingController();
-TextEditingController phone=TextEditingController();
-TextEditingController sex=TextEditingController();
-TextEditingController birthday=TextEditingController();
-TextEditingController emai=TextEditingController();
+TextEditingController name = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController sex = TextEditingController();
+TextEditingController birthday = TextEditingController();
+TextEditingController emai = TextEditingController();
 
 class _InfoState extends State<Info> {
-  
-void queryData() async {
+  void queryData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
     for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
-        phone.text=element['Phone'];
-        sex.text=element['Sex'];
-        birthday.text=element['Birthday'];
-        emai.text=element['Email'];
+        phone.text = element['Phone'];
+        sex.text = element['Sex'];
+        birthday.text = element['Birthday'];
+        emai.text = element['Email'];
         break;
       }
     }
-    setState(() {
-      
-    });
+    setState(() {});
   }
-    void initState() {
+
+  void initState() {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
     queryData();
   }
- 
 
   @override
   Widget build(BuildContext context) {
-    //print(widget.unit);
-        print(name.text);
+    //print('a');
+    print(widget.unit);
 
     double avtW = ((MediaQuery.of(context).size.width - 20) * 1.2 / 3) > 160
         ? 200
         : (MediaQuery.of(context).size.width - 20) * 1.2 / 3;
-    //print(avtW);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -72,7 +69,8 @@ void queryData() async {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>EditPersonalInfo(id: widget.unit) ),
+                MaterialPageRoute(
+                    builder: (context) => EditPersonalInfo(id: widget.unit)),
               );
             },
             icon: Icon(Icons.edit),
@@ -125,9 +123,7 @@ void queryData() async {
                     ],
                   ),
                   InfoTitle(
-                      icon: Icons.phone,
-                      title: "Họ tên",
-                      value: name.text),
+                      icon: Icons.phone, title: "Họ tên", value: name.text),
                   InfoTitle(
                       icon: Icons.phone, title: "Di Động", value: phone.text),
                   InfoTitle(
@@ -187,10 +183,13 @@ void queryData() async {
         height: 50,
         items: [
           IconButton(
-            onPressed: (){
-               Navigator.push(
+            onPressed: () {
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  HomeScreen(unit: "",)),
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          unit: "",
+                        )),
               );
             },
             icon: const Icon(Icons.home, color: Colors.grey),
@@ -203,7 +202,10 @@ void queryData() async {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  Info(unit: "",)),
+                MaterialPageRoute(
+                    builder: (context) => Info(
+                          unit: "",
+                        )),
               );
             },
             icon: const Icon(color: Colors.grey, Icons.account_circle_outlined),
