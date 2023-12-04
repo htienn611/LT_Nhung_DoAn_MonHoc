@@ -47,7 +47,7 @@ Widget buildWeatherWidget(String cityName) {
        // print(imageUrl);
         return Column(
           children: [
-            Container(padding: EdgeInsets.only(bottom: 10),
+            Container(padding: EdgeInsets.only(bottom: 5),
               child: Text(cityName, style: const TextStyle(fontSize: 18))),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +67,7 @@ Widget buildWeatherWidget(String cityName) {
                 Row(
                   children: [
                     Image(
-                      width: 200,
+                      width: 120,
                       image: AssetImage(imageUrl),
                       fit: BoxFit.fill,
                     ),

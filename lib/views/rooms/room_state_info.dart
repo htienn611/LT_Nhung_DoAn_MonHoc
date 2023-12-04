@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../api/model/rooms.dart';
 import '../components/slider_light.dart';
 
