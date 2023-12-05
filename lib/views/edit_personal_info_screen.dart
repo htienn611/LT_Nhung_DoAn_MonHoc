@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -27,22 +28,15 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     String? idElement;
     for (var element in lstDoc) {
       if (element[key] == widget.id) {
-
        name.text = element['Name'];
        email.text = element['Email'];
        phone.text = element['Phone'];
        birthday.text = element['Birthday'];
        groupValue = element['Sex'];
-        idElement = element.id;
-         setState(() {
-  
-});
+      idElement = element.id;
        break;
-      }
-      setState(() {});
+      }    
     }
-
-    //print(idElement);
     return idElement.toString();
   }
 
@@ -61,7 +55,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Trang chỉnh sửa thông tin")),
+        
       ),
+      drawer: DrawerMenu(),
       body: SingleChildScrollView(
         child: Container(
             height: MediaQuery.of(context).size.height,
@@ -263,11 +259,21 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   phone.text.isNotEmpty ? phone.text : null,
                               'Sex': groupValue
                             };
-                            CollectionReference collection = FirebaseFirestore
+                            String? idoc=await queryData();
+                            if(idoc !=null)
+                            {
+                               CollectionReference collection = FirebaseFirestore
                                 .instance
                                 .collection('Account');
-                            DocumentReference document = collection.doc();
+                            DocumentReference document = collection.doc(idoc.toString());
+                            document.update(dataToUpdate);
+                            }
+
+                           
                           } else {}
+                          setState(() {
+                            queryData();
+                          });
                         },
                         child: Text(
                           "Cập nhật",
