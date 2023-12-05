@@ -47,12 +47,15 @@ class _CardItemState extends State<CardRoomState> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Data.listenToHomePageDataChanges(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     CheckIsBedR();
-   // print(widget.room.idx);
+    // print(widget.room.idx);
     //print('a');
     return Container(
       width: (MediaQuery.of(context).size.width - 40) > 400
@@ -163,9 +166,13 @@ class _CardItemState extends State<CardRoomState> {
                             ),
                           ),
                           child: IconButton(
-                              onPressed: widget.isBedR
-                                  ? _showSliderDialog
-                                  : updateLedState,
+                              onPressed: () {
+                                widget.isBedR
+                                    ? _showSliderDialog()
+                                    : updateLedState();
+                                Data.updateDeviceValue(widget.room.idx,
+                                    widget.led.idx, "state", widget.led.state);
+                              },
                               icon: Icon((widget.led.state && !widget.isBedR) ||
                                       (sliderValue > 0 && widget.isBedR)
                                   ? Icons.light_mode
