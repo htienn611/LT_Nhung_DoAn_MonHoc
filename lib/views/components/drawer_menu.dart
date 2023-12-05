@@ -46,7 +46,8 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
-  bool stateSwich=false;
+  bool stateSwich = false;
+  var icon = Icon(Icons.warning_amber_outlined);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -163,6 +164,22 @@ class _DrawerMenuState extends State<DrawerMenu> {
               },
             ),
             ListTile(
+              leading: icon,
+              title: const Text("Báo động"),
+              trailing: Switch(
+                  value: stateSwich,
+                  onChanged: (bool value) {
+                    setState(() {
+                      stateSwich = value;
+                      if (value == true)
+                        icon = Icon(Icons.warning);
+                      else {
+                        icon = Icon(Icons.warning_amber_outlined);
+                      }
+                    });
+                  }),
+            ),
+            ListTile(
               leading: const Icon(Icons.logout_outlined),
               title: const Text("Đăng xuất"),
               onTap: () async {
@@ -173,26 +190,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     content: 'Bạn có chắc chắn muốn thoát?',
                   ),
                 );
-
                 // Xử lý kết quả từ hộp thoại
                 if (result == true) {
                   Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
                 } else {}
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.warning_amber),
-              title: const Text("Báo động"),
-              trailing: Switch(value: stateSwich, onChanged: (bool value){}),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomeScreen(
-                              unit: "",
-                            )));
               },
             ),
           ],
