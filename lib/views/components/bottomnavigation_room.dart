@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../api/model/rooms.dart';
+
 class BottomNav extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTabTapped;
-
   const BottomNav(
-      {super.key, required this.currentIndex, required this.onTabTapped});
+      {super.key, required this.currentIndex, required this.onTabTapped,});
 
   @override
   Widget build(BuildContext context) {

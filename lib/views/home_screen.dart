@@ -32,13 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       }
     }
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Room> lstR = List.filled(0, Room("", true, List.empty()));
+  List<Room> lstR = List.filled(0, Room("", true, List.empty(),""));
   void loadData() async {
     Data.loadData().then((value) {
       setState(() {
@@ -55,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     queryData();
     loadData();
-    DatabaseReference reference = FirebaseDatabase.instance.reference();
-    reference.onValue.listen((event) {
-      loadData();
+    Data.listenToHomePageDataChanges(() {
+      // Phương thức này được gọi khi có sự thay đổi dữ liệu và widget cần được làm mới
+      setState(() {});
     });
   }
 
@@ -103,32 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Xin chào! ${name.text}',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        )
-                      ],
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        // Xử lý khi người dùng nhấn vào biểu tượng thông báo
-                      },
-                      icon: const Icon(
-                        Icons.notifications_outlined,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Xin chào! ${name.text}',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ],
               ),
               // Thông tin thời tiết nhiệt độ
               Expanded(

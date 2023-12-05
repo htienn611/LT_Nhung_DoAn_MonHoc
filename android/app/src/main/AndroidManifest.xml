@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.doan_monhoc">
    <application
-        android:label="doan_monhoc"
+        android:label="Magic SmartHome"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -46,6 +46,8 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
+  bool stateSwich = false;
+  var icon = Icon(Icons.warning_amber_outlined);
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.chair),
                       title: const Text("Phòng khách"),
                       onTap: () {
+                        Navigator.pop(this.context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -103,6 +106,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.restaurant),
                       title: const Text("Phòng ăn"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -115,30 +120,42 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.bed),
                       title: const Text("Phòng ngủ"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 2,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 2,
+                                    )));
                       },
                     ),
                     ListTile(
                       leading: const Icon(Icons.shower),
                       title: const Text("Phòng vệ sinh"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 3,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 3,
+                                    )));
                       },
                     ),
                     ListTile(
                       leading: const Icon(Icons.grass),
                       title: const Text("Khu vực sân"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 4,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 4,
+                                    )));
                       },
                     ),
                   ],
@@ -148,6 +165,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Tài khoản"),
               onTap: () {
+                Navigator.pop(this.context);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -155,6 +174,22 @@ class _DrawerMenuState extends State<DrawerMenu> {
                               unit: "",
                             )));
               },
+            ),
+            ListTile(
+              leading: icon,
+              title: const Text("Báo động"),
+              trailing: Switch(
+                  value: stateSwich,
+                  onChanged: (bool value) {
+                    setState(() {
+                      stateSwich = value;
+                      if (value == true)
+                        icon = Icon(Icons.warning);
+                      else {
+                        icon = Icon(Icons.warning_amber_outlined);
+                      }
+                    });
+                  }),
             ),
             ListTile(
               leading: const Icon(Icons.logout_outlined),
@@ -167,7 +202,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     content: 'Bạn có chắc chắn muốn thoát?',
                   ),
                 );
-
                 // Xử lý kết quả từ hộp thoại
                 if (result == true) {
                   Navigator.pop(context);
@@ -176,6 +210,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 } else {}
               },
             ),
+
           ],
         ),
       ),

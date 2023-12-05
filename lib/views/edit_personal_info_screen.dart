@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -32,25 +33,20 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
         phone.text = element['Phone'];
         birthday.text = element['Birthday'];
         groupValue = element['Sex'];
-
         idElement = element.id;
         break;
       }
-      setState(() {
-        
-      });
+      return idElement.toString();
     }
 
-    //print(idElement);
-    return idElement.toString();
-  }
+    @override
+    void initState() {
+      super.initState();
+      key = widget.id.contains('@') ? 'Email' : 'Phone';
+      print(key);
+      queryData();
+    }
 
-  @override
-  void initState() {
-    super.initState();
-    key = widget.id.contains('@') ? 'Email' : 'Phone';
-    // print(key);
-    queryData();
   }
 
   @override
@@ -60,7 +56,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Trang chỉnh sửa thông tin")),
+        
       ),
+      drawer: DrawerMenu(),
       body: SingleChildScrollView(
         child: Container(
             height: MediaQuery.of(context).size.height,
@@ -271,17 +269,18 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               DocumentReference document =
                                   collect.doc(idDoc.toString());
                               document.update(dataToUpdate);
-                            } else {
-                              print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
                             }
-                            setState(() {
-                              queryData();
-                            });
+                          } else {
+                            print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
                           }
+
+                          setState(() {
+                            queryData();
+                          });
                         },
                         child: Text(
                           "Cập nhật",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 20),
                         ))
                   ],
                 ))
@@ -291,5 +290,6 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     );
   }
 }
+
 
 //email, sdt, tên người dùng, ngày sinh, giới tính, avatar

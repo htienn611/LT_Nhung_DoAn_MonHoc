@@ -3,14 +3,12 @@ import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-int _indexRoom = 0;
+
+import '../../api/model/data.dart';
 
 class DeviceState extends StatefulWidget {
-  DeviceState(
-      {super.key,
-      required this.dv,
-      required this.indexRoom,
-      required this.indexDv});
+  DeviceState({super.key, required this.dv, required this.idxR});
+  int idxR;
   Device dv;
   int indexRoom;
   int indexDv;
@@ -25,6 +23,15 @@ class DeviceState extends StatefulWidget {
 class _DeviceStateState extends State<DeviceState> {
   bool status = false;
   
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Data.listenToHomePageDataChanges(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,42 +57,42 @@ class _DeviceStateState extends State<DeviceState> {
                 ),
               ],
             ),
-            !widget.dv.name.contains('btn')
-                ? Switch(
-                    value: status,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        status = value!;
-                      });
-                   Data.updateDevicesStatus("state", status, widget.indexRoom, widget.indexDv);
-                    })
-                : Text(widget.dv.description),
+
+            Switch(
+                value: widget.dv.state,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.dv.state = value!;
+                    Data.updateDeviceValue(
+                        widget.idxR, widget.dv.idx, "state", widget.dv.state);
+                  });
+                }),
           ],
         ),
       ),
     );
   }
 
-  @override
-  void initState() {
+//   @override
+//   void initState() {
 
-    _indexRoom = widget.indexRoom;
-    super.initState();
-    widget.reference
-        .child('room')
-        .child(widget.indexRoom.toString())
-        .child('devices')
-        .child(widget.indexDv.toString())
-        .child('state')
-        .onValue
-        .listen((event) {
-      var snapshot = event.snapshot;
-      print(snapshot.value);
-      setState(() {
-        print(widget.dv.name);
+//     _indexRoom = widget.indexRoom;
+//     super.initState();
+//     widget.reference
+//         .child('room')
+//         .child(widget.indexRoom.toString())
+//         .child('devices')
+//         .child(widget.indexDv.toString())
+//         .child('state')
+//         .onValue
+//         .listen((event) {
+//       var snapshot = event.snapshot;
+//       print(snapshot.value);
+//       setState(() {
+//         print(widget.dv.name);
 
-        status = snapshot.value == true;
-      });
-    });
+//         status = snapshot.value == true;
+//       });
+//     });
   }
 }
