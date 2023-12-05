@@ -28,24 +28,25 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     String? idElement;
     for (var element in lstDoc) {
       if (element[key] == widget.id) {
-       name.text = element['Name'];
-       email.text = element['Email'];
-       phone.text = element['Phone'];
-       birthday.text = element['Birthday'];
-       groupValue = element['Sex'];
-      idElement = element.id;
-       break;
-      }    
+        name.text = element['Name'];
+        email.text = element['Email'];
+        phone.text = element['Phone'];
+        birthday.text = element['Birthday'];
+        groupValue = element['Sex'];
+        idElement = element.id;
+        break;
+      }
+      return idElement.toString();
     }
-    return idElement.toString();
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    key = widget.id.contains('@') ? 'Email' : 'Phone';
-    print(key);
-    queryData();
+    @override
+    void initState() {
+      super.initState();
+      key = widget.id.contains('@') ? 'Email' : 'Phone';
+      print(key);
+      queryData();
+    }
+
   }
 
   @override
@@ -259,18 +260,20 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   phone.text.isNotEmpty ? phone.text : null,
                               'Sex': groupValue
                             };
-                            String? idoc=await queryData();
-                            if(idoc !=null)
-                            {
-                               CollectionReference collection = FirebaseFirestore
-                                .instance
-                                .collection('Account');
-                            DocumentReference document = collection.doc(idoc.toString());
-                            document.update(dataToUpdate);
+                            String? idDoc = await queryData();
+                            if (idDoc != null) {
+                              print(idDoc.toString());
+                              CollectionReference collect = FirebaseFirestore
+                                  .instance
+                                  .collection('Account');
+                              DocumentReference document =
+                                  collect.doc(idDoc.toString());
+                              document.update(dataToUpdate);
                             }
+                          } else {
+                            print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
+                          }
 
-                           
-                          } else {}
                           setState(() {
                             queryData();
                           });
@@ -287,5 +290,6 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     );
   }
 }
+
 
 //email, sdt, tên người dùng, ngày sinh, giới tính, avatar
