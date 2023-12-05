@@ -34,16 +34,20 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
        phone.text = element['Phone'];
        birthday.text = element['Birthday'];
        groupValue = element['Sex'];
+       setState(() {
+  
+});
        break;
       }
     }
+
   }
 
   @override
   void initState(){
     super.initState();
     key = widget.id.contains('@') ? 'Email' : 'Phone';
-    print(key);
+    //print(key);
     queryData();
   }
 
@@ -241,6 +245,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 .collection('Account');
                             DocumentReference document = collection.doc();
                           } else {}
+                          setState(() {
+                            
+                          });
                         },
                         child: Text(
                           "Cập nhật",

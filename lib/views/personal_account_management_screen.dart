@@ -26,7 +26,9 @@ void queryData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
-    for (var element in lstDoc) {
+   
+    setState(() {
+       for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
         phone.text=element['Phone'];
@@ -36,7 +38,6 @@ void queryData() async {
         break;
       }
     }
-    setState(() {
       
     });
   }
@@ -127,7 +128,8 @@ void queryData() async {
                   InfoTitle(
                       icon: Icons.phone,
                       title: "Họ tên",
-                      value: name.text),
+                      value: name.text,
+                      ),
                   InfoTitle(
                       icon: Icons.phone, title: "Di Động", value: phone.text),
                   InfoTitle(
@@ -142,6 +144,7 @@ void queryData() async {
                       icon: Icons.email_rounded,
                       title: "Email",
                       value: emai.text),
+                    
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: ElevatedButton(

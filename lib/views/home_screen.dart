@@ -30,18 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
     for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
-        print(name.text);
+        //print(name.text);
         break;
       }
     }
     setState(() {
       
     });
-  }
-
-  void initState() {
-    super.initState();
-   
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -57,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
      key = widget.unit.contains('@') ? 'Email' : 'Phone';
-    print(key);
+    //print(key);
     queryData();
     loadData();
   }
