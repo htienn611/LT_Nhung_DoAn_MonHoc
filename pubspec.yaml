@@ -47,7 +47,13 @@ dependencies:
   google_sign_in: ^6.1.6
   http: ^0.13.3
   characters: ^1.1.0
+  flutter_launcher_icons: ^0.13.1
 
+flutter_icons:
+  android: true
+  image_path: "assets/img/logoSmartHome.png"
+
+#ngan cach
 dev_dependencies:
   flutter_test:
     sdk: flutter

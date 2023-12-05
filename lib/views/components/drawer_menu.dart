@@ -46,7 +46,7 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
-
+  bool stateSwich=false;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -118,7 +118,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 2,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 2,
+                                    )));
                       },
                     ),
                     ListTile(
@@ -128,7 +130,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 3,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 3,
+                                    )));
                       },
                     ),
                     ListTile(
@@ -138,7 +142,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RoomDevice(idx: 4,)));
+                                builder: (context) => RoomDevice(
+                                      idx: 4,
+                                    )));
                       },
                     ),
                   ],
@@ -174,6 +180,19 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
                 } else {}
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.warning_amber),
+              title: const Text("Báo động"),
+              trailing: Switch(value: stateSwich, onChanged: (bool value){}),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                              unit: "",
+                            )));
               },
             ),
           ],

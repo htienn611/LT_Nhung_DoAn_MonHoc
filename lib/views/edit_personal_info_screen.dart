@@ -36,9 +36,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
         idElement = element.id;
         break;
       }
-      setState(() {
-        
-      });
+      setState(() {});
     }
 
     //print(idElement);
@@ -281,7 +279,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         },
                         child: Text(
                           "Cập nhật",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 20),
                         ))
                   ],
                 ))
