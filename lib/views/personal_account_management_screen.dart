@@ -26,7 +26,9 @@ class _InfoState extends State<Info> {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
-    for (var element in lstDoc) {
+   
+    setState(() {
+       for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
         phone.text = element['Phone'];
@@ -36,6 +38,8 @@ class _InfoState extends State<Info> {
         break;
       }
     }
+      
+    });
     setState(() {});
   }
 
@@ -140,6 +144,7 @@ class _InfoState extends State<Info> {
                       icon: Icons.email_rounded,
                       title: "Email",
                       value: emai.text),
+                    
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: ElevatedButton(

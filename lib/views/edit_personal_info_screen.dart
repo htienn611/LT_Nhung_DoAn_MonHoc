@@ -27,14 +27,17 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     String? idElement;
     for (var element in lstDoc) {
       if (element[key] == widget.id) {
-        name.text = element['Name'];
-        email.text = element['Email'];
-        phone.text = element['Phone'];
-        birthday.text = element['Birthday'];
-        groupValue = element['Sex'];
 
+       name.text = element['Name'];
+       email.text = element['Email'];
+       phone.text = element['Phone'];
+       birthday.text = element['Birthday'];
+       groupValue = element['Sex'];
         idElement = element.id;
-        break;
+         setState(() {
+  
+});
+       break;
       }
       setState(() {});
     }
@@ -47,7 +50,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
   void initState() {
     super.initState();
     key = widget.id.contains('@') ? 'Email' : 'Phone';
-    // print(key);
+    print(key);
     queryData();
   }
 
@@ -260,22 +263,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   phone.text.isNotEmpty ? phone.text : null,
                               'Sex': groupValue
                             };
-                            String? idDoc = await queryData();
-                            if (idDoc != null) {
-                              print(idDoc.toString());
-                              CollectionReference collect = FirebaseFirestore
-                                  .instance
-                                  .collection('Account');
-                              DocumentReference document =
-                                  collect.doc(idDoc.toString());
-                              document.update(dataToUpdate);
-                            } else {
-                              print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
-                            }
-                            setState(() {
-                              queryData();
-                            });
-                          }
+                            CollectionReference collection = FirebaseFirestore
+                                .instance
+                                .collection('Account');
+                            DocumentReference document = collection.doc();
+                          } else {}
                         },
                         child: Text(
                           "Cập nhật",
