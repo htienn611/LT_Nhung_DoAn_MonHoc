@@ -26,27 +26,24 @@ class _InfoState extends State<Info> {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
-   
-    setState(() {
-       for (var element in lstDoc) {
+      for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
         phone.text = element['Phone'];
         sex.text = element['Sex'];
         birthday.text = element['Birthday'];
         emai.text = element['Email'];
-        break;
-      }
+        break;      
     }
-      
-    });
-    setState(() {});
+    };
   }
-
   void initState() {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
-    queryData();
+    setState(() {
+       queryData();
+    });
+   
   }
 
   @override
@@ -129,7 +126,9 @@ class _InfoState extends State<Info> {
                     ],
                   ),
                   InfoTitle(
-                      icon: Icons.phone, title: "Họ tên", value: name.text),
+                      icon: Icons.phone, title: "Họ tên", value: name.text,
+
+                      ),
                   InfoTitle(
                       icon: Icons.phone, title: "Di Động", value: phone.text),
                   InfoTitle(
@@ -176,8 +175,10 @@ class _InfoState extends State<Info> {
                         // Bạn có thể thêm thuộc tính khác tại đây, ví dụ như padding, textStyle, ...
                       ),
                     ),
+                    
                   )
                 ],
+              
               ),
             ),
           ),

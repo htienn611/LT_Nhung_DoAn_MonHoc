@@ -76,6 +76,8 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //print("a");
+    //Data.test();
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -160,7 +162,9 @@ class LoginScreenState extends State<LoginScreen> {
                           ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen(unit: phoneController.text,)))
+                                  builder: (context) => HomeScreen(
+                                        unit: phoneController.text,
+                                      )))
                           : "";
                     });
                     setState(() {});

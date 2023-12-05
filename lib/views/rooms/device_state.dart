@@ -1,14 +1,26 @@
 import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:flutter/material.dart';
 
+import '../../api/model/data.dart';
+
 class DeviceState extends StatefulWidget {
-  DeviceState({super.key, required this.dv});
+  DeviceState({super.key, required this.dv, required this.idxR});
+  int idxR;
   Device dv;
   @override
   State<DeviceState> createState() => _DeviceStateState();
 }
 
 class _DeviceStateState extends State<DeviceState> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Data.listenToHomePageDataChanges(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,6 +49,8 @@ class _DeviceStateState extends State<DeviceState> {
                 onChanged: (bool? value) {
                   setState(() {
                     widget.dv.state = value!;
+                    Data.updateDeviceValue(
+                        widget.idxR, widget.dv.idx, "state", widget.dv.state);
                   });
                 }),
           ],

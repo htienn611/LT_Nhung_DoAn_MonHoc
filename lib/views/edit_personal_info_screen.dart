@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:doan_monhoc/views/components/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -45,6 +46,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
       print(key);
       queryData();
     }
+
   }
 
   @override
@@ -54,7 +56,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Trang chỉnh sửa thông tin")),
+        
       ),
+      drawer: DrawerMenu(),
       body: SingleChildScrollView(
         child: Container(
             height: MediaQuery.of(context).size.height,
@@ -269,6 +273,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           } else {
                             print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
                           }
+
                           setState(() {
                             queryData();
                           });

@@ -48,6 +48,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
   bool stateSwich = false;
   var icon = Icon(Icons.warning_amber_outlined);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -92,6 +93,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.chair),
                       title: const Text("Phòng khách"),
                       onTap: () {
+                        Navigator.pop(this.context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -104,6 +106,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.restaurant),
                       title: const Text("Phòng ăn"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -116,6 +120,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.bed),
                       title: const Text("Phòng ngủ"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -128,6 +134,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.shower),
                       title: const Text("Phòng vệ sinh"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -140,6 +148,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.grass),
                       title: const Text("Khu vực sân"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -155,6 +165,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Tài khoản"),
               onTap: () {
+                Navigator.pop(this.context);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -198,6 +210,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 } else {}
               },
             ),
+
           ],
         ),
       ),
