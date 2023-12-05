@@ -5,6 +5,7 @@ import 'rooms.dart';
 
 class Data {
   static var mode_warning;
+  static var warning_led_state;
   static List<Room> lstRoom =
       List.filled(0, Room("", true, List.empty(), ""), growable: true);
   static DatabaseReference reference = FirebaseDatabase.instance.reference();
@@ -22,6 +23,7 @@ class Data {
       String str = jsonEncode(snapshot.value);
       Map<String, dynamic> data = jsonDecode(str);
       mode_warning = data['mode_warning'];
+      warning_led_state = data['warning_led_state'];
       lstRoom.clear();
       for (var entry in data['room']) {
         if (entry != null) {
@@ -54,7 +56,7 @@ class Data {
   static Future<void> updateRoomValue(
       dynamic idx, String fieldName, dynamic newValue) async {
     try {
-      await reference.child('room/$idx').update({fieldName:newValue});
+      await reference.child('room/$idx').update({fieldName: newValue});
       print('Data updated successfully.');
     } catch (error) {
       print('Error updating data: $error');
@@ -62,23 +64,30 @@ class Data {
   }
 
   static Future<void> updateDeviceValue(
-      dynamic idxR,dynamic idxDv, String fieldName, dynamic newValue) async {
+      dynamic idxR, dynamic idxDv, String fieldName, dynamic newValue) async {
     try {
-      await reference.child('room/$idxR/devices/$idxDv').update({fieldName:newValue});
+      await reference
+          .child('room/$idxR/devices/$idxDv')
+          .update({fieldName: newValue});
       print('Data updated successfully.');
     } catch (error) {
       print('Error updating data: $error');
     }
   }
 
-  static Future<void> updateDevicesStatus(String key, bool status, dynamic idxR,dynamic idxDv) async {
+  static Future<void> updateDevicesStatus(
+      String key, bool status, dynamic idxR, dynamic idxDv) async {
     try {
-      await reference
-          .child('room')
-          .child(idxR.toString())
-          .child('devices')
-          .child(idxDv.toString())
-          .update({key: status});
+      if (idxDv == 0) {
+        reference.update({'mode_warning': status});
+      } else {
+        await reference
+            .child('room')
+            .child(idxR.toString())
+            .child('devices')
+            .child(idxDv.toString())
+            .update({key: status});
+      }
       print("Firebase update successful");
     } catch (error) {
       print("Error updating Firebase: $error");

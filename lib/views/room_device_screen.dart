@@ -21,7 +21,7 @@ class _RoomDeviceState extends State<RoomDevice> {
     pages.clear();
     for (int i = 0; i < Data.lstRoom.length; i++) {
       setState(() {
-        pages.add(RoomWiget(room: Data.lstRoom[i],index: i,));
+        pages.add(RoomWiget(room: Data.lstRoom[i]));
       });
     }
   }
