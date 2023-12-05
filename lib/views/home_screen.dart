@@ -162,11 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.home, color: Colors.grey),
           ),
           IconButton(
-            onPressed: null,
-            icon: const Icon(color: Colors.grey, Icons.account_box),
-          ),
-          IconButton(
             onPressed: () {
+              Navigator.pop(this.context);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
