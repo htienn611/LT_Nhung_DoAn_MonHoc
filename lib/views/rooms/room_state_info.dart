@@ -1,3 +1,4 @@
+import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:flutter/material.dart';
 import '../../api/model/rooms.dart';
 import '../components/slider_light.dart';
@@ -5,6 +6,7 @@ import '../components/slider_light.dart';
 class CardRoomState extends StatefulWidget {
   CardRoomState({super.key, required this.room});
   Room room;
+  late Device led;
   bool isBedR = false;
   @override
   State<CardRoomState> createState() => _CardItemState();
@@ -12,12 +14,11 @@ class CardRoomState extends StatefulWidget {
 
 class _CardItemState extends State<CardRoomState> {
   double sliderValue = 4.0;
-  bool stateLed = false;
   void _showSliderDialog() async {
     double? newSliderValue = await showDialog<double>(
       context: context,
       builder: (BuildContext context) {
-        print(sliderValue);
+        //  print(sliderValue);
         return SliderDialog(initialValue: sliderValue);
       },
     );
@@ -32,17 +33,19 @@ class _CardItemState extends State<CardRoomState> {
   void CheckIsBedR() {
     setState(() {
       widget.isBedR = widget.room.name.contains('ngủ') ? true : false;
+      widget.led = widget.room.lstDevice
+          .singleWhere((element) => element.name.contains("led_light"));
     });
   }
 
   void updateLedState() {
-    widget.room.lstDevice
-        .where((element) => element.name.contains("ngủ"))
-        .forEach((e) {
-      e.state = true;
-      stateLed = e.state;
+    setState(() {
+      widget.led.state = !widget.led.state;
     });
-    print(stateLed);
+    //  widget.led = Device("", true, "");
+    // widget.led = widget.room.lstDevice
+    //     .singleWhere((element) => element.name.contains("bed"));
+    print(widget.led.state);
   }
 
   @override
@@ -54,10 +57,9 @@ class _CardItemState extends State<CardRoomState> {
   @override
   Widget build(BuildContext context) {
     CheckIsBedR();
-    print(widget.isBedR);
-    updateLedState();
+    //print(widget.isBedR);
+    //  updateLedState();
     print('a');
-    print(stateLed);
     return Container(
       width: (MediaQuery.of(context).size.width - 40) > 400
           ? 400
@@ -168,7 +170,8 @@ class _CardItemState extends State<CardRoomState> {
                               onPressed: widget.isBedR
                                   ? _showSliderDialog
                                   : updateLedState,
-                              icon: Icon(stateLed
+                              icon: Icon((widget.led.state && !widget.isBedR) ||
+                                      (sliderValue > 0&&widget.isBedR)
                                   ? Icons.light_mode
                                   : Icons.light_mode_outlined)))
                     ],
