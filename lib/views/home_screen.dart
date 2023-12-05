@@ -32,13 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       }
     }
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Room> lstR = List.filled(0, Room("", true, List.empty()));
+  List<Room> lstR = List.filled(0, Room("", true, List.empty(),""));
   void loadData() async {
     Data.loadData().then((value) {
       setState(() {
@@ -55,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     queryData();
     loadData();
-    DatabaseReference reference = FirebaseDatabase.instance.reference();
-    reference.onValue.listen((event) {
-      loadData();
+    Data.listenToHomePageDataChanges(() {
+      // Phương thức này được gọi khi có sự thay đổi dữ liệu và widget cần được làm mới
+      setState(() {});
     });
   }
 

@@ -46,7 +46,7 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
-  bool stateSwich=false;
+  bool stateSwich = false;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -91,6 +91,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.chair),
                       title: const Text("Phòng khách"),
                       onTap: () {
+                        Navigator.pop(this.context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -103,6 +104,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.restaurant),
                       title: const Text("Phòng ăn"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -115,6 +118,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.bed),
                       title: const Text("Phòng ngủ"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -127,6 +132,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.shower),
                       title: const Text("Phòng vệ sinh"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -139,6 +146,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.grass),
                       title: const Text("Khu vực sân"),
                       onTap: () {
+                        Navigator.pop(this.context);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -154,6 +163,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Tài khoản"),
               onTap: () {
+                Navigator.pop(this.context);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -185,8 +196,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ListTile(
               leading: const Icon(Icons.warning_amber),
               title: const Text("Báo động"),
-              trailing: Switch(value: stateSwich, onChanged: (bool value){}),
+              trailing: Switch(value: stateSwich, onChanged: (bool value) {}),
               onTap: () {
+                Navigator.pop(context);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(

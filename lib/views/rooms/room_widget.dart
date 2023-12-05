@@ -5,29 +5,30 @@ import 'package:doan_monhoc/views/rooms/device_state.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../api/model/data.dart';
 import '../../api/model/rooms.dart';
 
 // ignore: must_be_immutable
 class RoomWiget extends StatefulWidget {
   RoomWiget({super.key, required this.room});
-  Room room;
+  late Room room;
   @override
   State<RoomWiget> createState() => _RoomWigetState();
 }
 
 class _RoomWigetState extends State<RoomWiget> {
   @override
-  Widget build(BuildContext context) {
-    // final List<DeviceState> devices = List.filled(
-    //     0, DeviceState(dv: Device("", false, 0, "")),
-    //     growable: true);
-    // final List<Device> lstR = widget.room.lstDevice;
-    // for (int i = 0; i < lstR.length; i++) {
-    //   setState(() {
-    //     devices.add(DeviceState(dv: widget.room.lstDevice[i]));
-    //   });
-    // }
+  void initState() {
+    super.initState();
+    Data.listenToHomePageDataChanges(() {
+      setState(() {});
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    //ValueNotifier<Room> a = widget.room;
+    Data.test();
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
@@ -71,9 +72,12 @@ class _RoomWigetState extends State<RoomWiget> {
                       Switch(
                           value: widget.room.follow,
                           activeColor: Colors.blue,
-                          onChanged: (bool? value) {
+                          onChanged: (bool? value) async {
                             setState(() {
                               widget.room.follow = value!;
+                              print('a');
+                              Data.updateRoomValue(widget.room.idx, "follow",
+                                  widget.room.follow);
                             });
                           }),
                     ],
@@ -100,59 +104,38 @@ class _RoomWigetState extends State<RoomWiget> {
           child: Column(
             children: [
               Expanded(
-                flex: 3,
+                  flex: 3,
                   child: ListView.builder(
                       itemCount: widget.room.lstDevice.length,
                       itemBuilder: (context, index) {
-                        return DeviceState(dv: widget.room.lstDevice[index]);
+                        return DeviceState(dv: widget.room.lstDevice[index],idxR: widget.room.idx,);
                       })),
               Expanded(
-                flex: 1,
-                child: Card(
-                  child: Container(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      children: const [
-                        Text(
-                          "Diện tích: ",
-                          style: TextStyle(fontSize: 18),
+                  flex: 4,
+                  child: Card(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const Text(
+                            "Hình ảnh phòng:",
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ),
-                        Text(
-                          "12m2",
-                          style: TextStyle(fontSize: 18),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 10,
+                          child: CarouselSlider.builder(
+                            options: CarouselOptions(autoPlay: true),
+                            itemCount: lstImg.length,
+                            itemBuilder: (BuildContext context, int itemIndex,
+                                    int pageViewIndex) =>
+                                SizedBox(child: Image.asset(lstImg[itemIndex])),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                  child: Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: const Text(
-                        "Hình ảnh phòng:",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width - 10,
-                      child: CarouselSlider.builder(
-                        options: CarouselOptions(autoPlay: true),
-                        itemCount: lstImg.length,
-                        itemBuilder: (BuildContext context, int itemIndex,
-                                int pageViewIndex) =>
-                            SizedBox(child: Image.asset(lstImg[itemIndex])),
-                      ),
-                    ),
-                  ],
-                ),
-              ))
+                  ))
             ],
           ),
         ));

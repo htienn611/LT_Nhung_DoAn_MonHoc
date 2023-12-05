@@ -1,5 +1,6 @@
 import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:flutter/material.dart';
+import '../../api/model/data.dart';
 import '../../api/model/rooms.dart';
 import '../components/slider_light.dart';
 
@@ -18,14 +19,12 @@ class _CardItemState extends State<CardRoomState> {
     double? newSliderValue = await showDialog<double>(
       context: context,
       builder: (BuildContext context) {
-        //  print(sliderValue);
         return SliderDialog(initialValue: sliderValue);
       },
     );
     if (newSliderValue != null) {
       setState(() {
         sliderValue = newSliderValue;
-        //print(sliderValue);
       });
     }
   }
@@ -42,10 +41,6 @@ class _CardItemState extends State<CardRoomState> {
     setState(() {
       widget.led.state = !widget.led.state;
     });
-    //  widget.led = Device("", true, "");
-    // widget.led = widget.room.lstDevice
-    //     .singleWhere((element) => element.name.contains("bed"));
-    print(widget.led.state);
   }
 
   @override
@@ -57,9 +52,8 @@ class _CardItemState extends State<CardRoomState> {
   @override
   Widget build(BuildContext context) {
     CheckIsBedR();
-    //print(widget.isBedR);
-    //  updateLedState();
-    print('a');
+   // print(widget.room.idx);
+    //print('a');
     return Container(
       width: (MediaQuery.of(context).size.width - 40) > 400
           ? 400
@@ -136,6 +130,8 @@ class _CardItemState extends State<CardRoomState> {
                         onChanged: (value) {
                           setState(() {
                             widget.room.follow = value;
+                            Data.updateRoomValue(
+                                widget.room.idx, "follow", widget.room.follow);
                           });
                         },
                         activeColor: Colors.blue,
@@ -171,7 +167,7 @@ class _CardItemState extends State<CardRoomState> {
                                   ? _showSliderDialog
                                   : updateLedState,
                               icon: Icon((widget.led.state && !widget.isBedR) ||
-                                      (sliderValue > 0&&widget.isBedR)
+                                      (sliderValue > 0 && widget.isBedR)
                                   ? Icons.light_mode
                                   : Icons.light_mode_outlined)))
                     ],
