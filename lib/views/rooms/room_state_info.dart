@@ -1,37 +1,63 @@
 import 'package:flutter/material.dart';
-
 import '../../api/model/rooms.dart';
 import '../components/slider_light.dart';
 
 class CardRoomState extends StatefulWidget {
-  CardRoomState({super.key,required this.room});
+  CardRoomState({super.key, required this.room});
   Room room;
+  bool isBedR = false;
   @override
   State<CardRoomState> createState() => _CardItemState();
 }
 
 class _CardItemState extends State<CardRoomState> {
   double sliderValue = 4.0;
+  bool stateLed = false;
+  void _showSliderDialog() async {
+    double? newSliderValue = await showDialog<double>(
+      context: context,
+      builder: (BuildContext context) {
+        print(sliderValue);
+        return SliderDialog(initialValue: sliderValue);
+      },
+    );
+    if (newSliderValue != null) {
+      setState(() {
+        sliderValue = newSliderValue;
+        //print(sliderValue);
+      });
+    }
+  }
+
+  void CheckIsBedR() {
+    setState(() {
+      widget.isBedR = widget.room.name.contains('ngủ') ? true : false;
+    });
+  }
+
+  void updateLedState() {
+    widget.room.lstDevice
+        .where((element) => element.name.contains("ngủ"))
+        .forEach((e) {
+      e.state = true;
+      stateLed = e.state;
+    });
+    print(stateLed);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    void _showSliderDialog() async {
-      double? newSliderValue = await showDialog<double>(
-        context: context,
-        builder: (BuildContext context) {
-          print(sliderValue);
-          return SliderDialog(initialValue: sliderValue);
-        },
-      );
-
-      if (newSliderValue != null) {
-        setState(() {
-          sliderValue = newSliderValue;
-          //print(sliderValue);
-        });
-      }
-    }
-
+    CheckIsBedR();
+    print(widget.isBedR);
+    updateLedState();
+    print('a');
+    print(stateLed);
     return Container(
       width: (MediaQuery.of(context).size.width - 40) > 400
           ? 400
@@ -60,9 +86,9 @@ class _CardItemState extends State<CardRoomState> {
                           ),
                           Container(
                             padding: const EdgeInsets.only(bottom: 5, left: 5),
-                            child:Text(
+                            child: Text(
                               widget.room.name,
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -86,15 +112,16 @@ class _CardItemState extends State<CardRoomState> {
                       ),
                     ],
                   ),
-                   Row(
-                     children: [
+                  Row(
+                    children: [
                       Text(widget.room.lstDevice.length.toString()),
-                       Text(
+                      Text(
                         " thiết bị kết nối",
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                     ],
-                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -138,8 +165,12 @@ class _CardItemState extends State<CardRoomState> {
                             ),
                           ),
                           child: IconButton(
-                              onPressed: _showSliderDialog,
-                              icon: Icon(Icons.light_mode)))
+                              onPressed: widget.isBedR
+                                  ? _showSliderDialog
+                                  : updateLedState,
+                              icon: Icon(stateLed
+                                  ? Icons.light_mode
+                                  : Icons.light_mode_outlined)))
                     ],
                   )
                 ],

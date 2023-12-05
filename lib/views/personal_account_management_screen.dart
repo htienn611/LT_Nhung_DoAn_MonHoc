@@ -8,21 +8,21 @@ import 'components/drawer_menu.dart';
 import 'components/title_info.dart';
 
 class Info extends StatefulWidget {
-   Info({super.key,required this.unit});
-   String unit;
+  Info({super.key, required this.unit});
+  String unit;
   @override
   State<Info> createState() => _InfoState();
 }
+
 var key;
-TextEditingController name=TextEditingController();
-TextEditingController phone=TextEditingController();
-TextEditingController sex=TextEditingController();
-TextEditingController birthday=TextEditingController();
-TextEditingController emai=TextEditingController();
+TextEditingController name = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController sex = TextEditingController();
+TextEditingController birthday = TextEditingController();
+TextEditingController emai = TextEditingController();
 
 class _InfoState extends State<Info> {
-  
-void queryData() async {
+  void queryData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Account').get();
     List<QueryDocumentSnapshot> lstDoc = querySnapshot.docs;
@@ -31,32 +31,32 @@ void queryData() async {
        for (var element in lstDoc) {
       if (element[key] == widget.unit) {
         name.text = element['Name'];
-        phone.text=element['Phone'];
-        sex.text=element['Sex'];
-        birthday.text=element['Birthday'];
-        emai.text=element['Email'];
+        phone.text = element['Phone'];
+        sex.text = element['Sex'];
+        birthday.text = element['Birthday'];
+        emai.text = element['Email'];
         break;
       }
     }
       
     });
+    setState(() {});
   }
-    void initState() {
+
+  void initState() {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
     queryData();
   }
- 
 
   @override
   Widget build(BuildContext context) {
-    //print(widget.unit);
-        print(name.text);
+    //print('a');
+    print(widget.unit);
 
     double avtW = ((MediaQuery.of(context).size.width - 20) * 1.2 / 3) > 160
         ? 200
         : (MediaQuery.of(context).size.width - 20) * 1.2 / 3;
-    //print(avtW);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -71,9 +71,12 @@ void queryData() async {
         actions: [
           IconButton(
             onPressed: () {
+              Navigator.pop(this.context);
+
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>EditPersonalInfo(id: widget.unit) ),
+                MaterialPageRoute(
+                    builder: (context) => EditPersonalInfo(id: widget.unit)),
               );
             },
             icon: Icon(Icons.edit),
@@ -126,10 +129,7 @@ void queryData() async {
                     ],
                   ),
                   InfoTitle(
-                      icon: Icons.phone,
-                      title: "Họ tên",
-                      value: name.text,
-                      ),
+                      icon: Icons.phone, title: "Họ tên", value: name.text),
                   InfoTitle(
                       icon: Icons.phone, title: "Di Động", value: phone.text),
                   InfoTitle(
@@ -184,68 +184,36 @@ void queryData() async {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        index: 2,
+        index: 1,
         backgroundColor: Colors.blue,
         animationDuration: const Duration(milliseconds: 300),
         height: 50,
         items: [
           IconButton(
-            onPressed: (){
-               Navigator.push(
+            onPressed: () {
+              //  Navigator.pop(this as BuildContext);
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  HomeScreen(unit: "",)),
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(unit: widget.unit)),
               );
             },
             icon: const Icon(Icons.home, color: Colors.grey),
           ),
           IconButton(
-            onPressed: null,
-            icon: const Icon(color: Colors.grey, Icons.account_box),
-          ),
-          IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  Info(unit: "",)),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => Info(
+              //             unit: "",
+              //           )),
+              // );
             },
             icon: const Icon(color: Colors.grey, Icons.account_circle_outlined),
           ),
         ],
       ),
-    );
-  }
-}
-
-class NutChucNang extends StatefulWidget {
-  const NutChucNang({super.key, required this.icon, required this.title});
-  final IconData icon;
-  final String title;
-
-  @override
-  State<NutChucNang> createState() => _NutChucNangState();
-}
-
-class _NutChucNangState extends State<NutChucNang> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ElevatedButton(
-            onPressed: null,
-            style: ElevatedButton.styleFrom(
-                //fixedSize: const Size(60,10)
-                //minimumSize:
-                ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(widget.icon),
-                const Text("Đổi Mật Khẩu"),
-                const Icon(Icons.navigate_next)
-              ],
-            ))
-      ],
     );
   }
 }

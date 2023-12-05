@@ -1,11 +1,9 @@
+import 'package:doan_monhoc/api/model/devices.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class DeviceState extends StatefulWidget {
-  DeviceState({super.key});
-  bool ledSw = false;
-  var name = "Đèn";
+  DeviceState({super.key, required this.dv});
+  Device dv;
   @override
   State<DeviceState> createState() => _DeviceStateState();
 }
@@ -22,21 +20,23 @@ class _DeviceStateState extends State<DeviceState> {
           children: [
             Row(
               children: [
-                Icon(widget.ledSw?Icons.light_mode:Icons.light_mode_outlined),
+                Icon(widget.dv.state
+                    ? Icons.light_mode
+                    : Icons.light_mode_outlined),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
-                    widget.name,
+                    widget.dv.name,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
               ],
             ),
             Switch(
-                value: widget.ledSw,
+                value: widget.dv.state,
                 onChanged: (bool? value) {
                   setState(() {
-                    widget.ledSw = value!;
+                    widget.dv.state = value!;
                   });
                 }),
           ],

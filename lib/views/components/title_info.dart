@@ -14,7 +14,7 @@ class InfoTitle extends StatelessWidget {
     double cardW = MediaQuery.of(context).size.width - 10 > 402
         ? 500
         : MediaQuery.of(context).size.width - 10;
-    print(cardW);
+    //print(cardW);
     return Container(
         width: cardW,
         margin: EdgeInsets.all(5),
