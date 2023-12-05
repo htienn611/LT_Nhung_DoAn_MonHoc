@@ -9,8 +9,9 @@ import '../../api/model/rooms.dart';
 
 // ignore: must_be_immutable
 class RoomWiget extends StatefulWidget {
-  RoomWiget({super.key, required this.room});
+  RoomWiget({super.key, required this.room,required this.index});
   Room room;
+  int index;
   @override
   State<RoomWiget> createState() => _RoomWigetState();
 }
@@ -103,8 +104,8 @@ class _RoomWigetState extends State<RoomWiget> {
                 flex: 3,
                   child: ListView.builder(
                       itemCount: widget.room.lstDevice.length,
-                      itemBuilder: (context, index) {
-                        return DeviceState(dv: widget.room.lstDevice[index]);
+                      itemBuilder: (context, i) {
+                        return DeviceState(dv: widget.room.lstDevice[i],indexRoom: widget.index,indexDv: i);
                       })),
               Expanded(
                 flex: 1,

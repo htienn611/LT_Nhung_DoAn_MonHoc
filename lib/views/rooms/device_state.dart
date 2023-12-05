@@ -1,14 +1,31 @@
+import 'package:doan_monhoc/api/model/data.dart';
 import 'package:doan_monhoc/api/model/devices.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+int _indexRoom = 0;
+
 class DeviceState extends StatefulWidget {
-  DeviceState({super.key, required this.dv});
+  DeviceState(
+      {super.key,
+      required this.dv,
+      required this.indexRoom,
+      required this.indexDv});
   Device dv;
+  int indexRoom;
+  int indexDv;
+   DatabaseReference reference = FirebaseDatabase.instance.reference();
+
   @override
   State<DeviceState> createState() => _DeviceStateState();
 }
 
+
+
 class _DeviceStateState extends State<DeviceState> {
+  bool status = false;
+  
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,9 +37,10 @@ class _DeviceStateState extends State<DeviceState> {
           children: [
             Row(
               children: [
-                Icon(widget.dv.state
-                    ? Icons.light_mode
-                    : Icons.light_mode_outlined),
+                !widget.dv.name.contains('btn')
+                    ? Icon(
+                        status ? Icons.light_mode : Icons.light_mode_outlined)
+                    : Icon(Icons.radio_button_checked),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
@@ -32,16 +50,42 @@ class _DeviceStateState extends State<DeviceState> {
                 ),
               ],
             ),
-            Switch(
-                value: widget.dv.state,
-                onChanged: (bool? value) {
-                  setState(() {
-                    widget.dv.state = value!;
-                  });
-                }),
+            !widget.dv.name.contains('btn')
+                ? Switch(
+                    value: status,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        status = value!;
+                      });
+                   Data.updateDevicesStatus("state", status, widget.indexRoom, widget.indexDv);
+                    })
+                : Text(widget.dv.description),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+
+    _indexRoom = widget.indexRoom;
+    super.initState();
+    widget.reference
+        .child('room')
+        .child(widget.indexRoom.toString())
+        .child('devices')
+        .child(widget.indexDv.toString())
+        .child('state')
+        .onValue
+        .listen((event) {
+      var snapshot = event.snapshot;
+      print(snapshot.value);
+      setState(() {
+        print(widget.dv.name);
+
+        status = snapshot.value == true;
+      });
+    });
   }
 }

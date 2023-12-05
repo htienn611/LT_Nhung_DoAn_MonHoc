@@ -13,13 +13,13 @@ class RoomDevice extends StatefulWidget {
 
 class _RoomDeviceState extends State<RoomDevice> {
   final List<RoomWiget> pages = List.filled(
-      0, RoomWiget(room: Room("", false, List.empty())),
+      0, RoomWiget(room: Room("", false, List.empty()), index: -1,),
       growable: true);
   final List<Room> lstR = Data.lstRoom;
   void loadData() {
     for (int i = 0; i < Data.lstRoom.length; i++) {
       setState(() {
-        pages.add(RoomWiget(room: Data.lstRoom[i]));
+        pages.add(RoomWiget(room: Data.lstRoom[i],index: i,));
       });
     }
   }

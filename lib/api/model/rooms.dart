@@ -3,7 +3,7 @@ import 'package:doan_monhoc/api/model/devices.dart';
 class Room {
   late String name;
   late bool follow;
-  List<Device> lstDevice = List.filled(0, Device("", true, ""), growable: true);
+  List<Device> lstDevice =[];
   Room(this.name, this.follow, this.lstDevice);
 
   Room.fromJson(Map<String, dynamic> json)
