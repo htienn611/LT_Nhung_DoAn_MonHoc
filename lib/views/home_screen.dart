@@ -103,32 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Xin chào! ${name.text}',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        )
-                      ],
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        // Xử lý khi người dùng nhấn vào biểu tượng thông báo
-                      },
-                      icon: const Icon(
-                        Icons.notifications_outlined,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Xin chào! ${name.text}',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ],
               ),
               // Thông tin thời tiết nhiệt độ
               Expanded(
