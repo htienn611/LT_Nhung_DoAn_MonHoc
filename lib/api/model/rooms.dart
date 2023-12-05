@@ -6,7 +6,6 @@ class Room {
   late dynamic idx;
   List<Device> lstDevice = List.filled(0, Device("", true, "",""), growable: true);
   Room(this.name, this.follow, this.lstDevice, this.idx);
-
   Room.fromJson(Map<String, dynamic> json)
       : name = json.containsKey('name') ? json['name'] : "",
        idx = json.containsKey('idx') ? json['idx'] : "",
