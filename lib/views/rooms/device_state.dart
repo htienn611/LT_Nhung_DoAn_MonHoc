@@ -63,15 +63,16 @@ class _DeviceStateState extends State<DeviceState> {
                 ),
               ],
             ),(
-              widget.dv.name.contains("led")?
+              widget.dv.name.contains("led")||widget.dv.name.contains("btn_warning")?
             Switch(
                 value: widget.dv.idx==0?Data.mode_warning:widget.dv.state,
                 onChanged: (bool? value) {
+                  widget.dv.name.contains("btn_warning")||widget.dv.name.contains("led")&&!widget.dv.name.contains("led_warning")?
                   setState(() {
                     widget.dv.state = value!;
                     Data.updateDevicesStatus(
                         "state", widget.dv.state, widget.idxR, widget.dv.idx);
-                  });
+                  }):"";
                 }):Text("")),
           ],
         ),
