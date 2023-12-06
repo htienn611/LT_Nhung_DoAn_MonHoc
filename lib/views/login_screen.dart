@@ -46,7 +46,6 @@ class LoginScreenState extends State<LoginScreen> {
         String phoneNumberFromFirebase = document.get(key);
         // print(phoneNumber+" "+phoneNumberFromFirebase);
         String passwordFromFirebase = document.get('Password');
-        // print(Password+" "+passwordFromFirebase);
         // So sánh với số điện thoại nhập từ ứng dụng
         if (phoneNumber == phoneNumberFromFirebase &&
             Password == passwordFromFirebase) {
@@ -62,19 +61,24 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<User?> signInWithGoogle() async {
-    await GoogleSignIn().signOut();
-    FirebaseAuth.instance.signOut();
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    UserCredential user =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    print(user.user!.displayName);
-  }
+  // Future<User?> signInWithGoogle() async {
+  //   await GoogleSignIn().signOut();
+  //   FirebaseAuth.instance.signOut();
+  //   GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //   GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+  //   AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+  //   UserCredential user =
+  //       await FirebaseAuth.instance.signInWithCredential(credential);
+  //   print(user.user!.displayName);
+  // }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     //print("a");
     //Data.test();
@@ -159,12 +163,15 @@ class LoginScreenState extends State<LoginScreen> {
                     _signIn(phoneController.text, passwordController.text)
                         .then((value) {
                       loginsucces == true
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen(
-                                        unit: phoneController.text,
-                                      )))
+                          ? [
+                              Navigator.pop(context),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen(
+                                            unit: phoneController.text,
+                                          )))
+                            ]
                           : "";
                     });
                     setState(() {});
