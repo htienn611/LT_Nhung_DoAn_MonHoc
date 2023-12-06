@@ -136,7 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: CurvedNavigationBar(
         index: 0,
         backgroundColor: Colors.blue,
-        animationDuration: const Duration(milliseconds: 300),
         height: 50,
         items: [
           IconButton(

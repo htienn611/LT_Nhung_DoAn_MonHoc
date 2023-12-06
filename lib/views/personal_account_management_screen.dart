@@ -50,7 +50,7 @@ class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     //print('a');
-    print(widget.unit);
+    //print(widget.unit);
 
     double avtW = ((MediaQuery.of(context).size.width - 20) * 1.2 / 3) > 160
         ? 200
@@ -188,7 +188,6 @@ class _InfoState extends State<Info> {
       bottomNavigationBar: CurvedNavigationBar(
         index: 1,
         backgroundColor: Colors.blue,
-        animationDuration: const Duration(milliseconds: 300),
         height: 50,
         items: [
           IconButton(
