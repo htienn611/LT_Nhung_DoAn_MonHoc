@@ -115,7 +115,7 @@ class _account_CreationScreenState extends State<account_CreationScreen> {
                           ? (data(_name.text, _unit.text, _pass.text, _auth)
                               .then((value) => value.id == null
                                   ? tb = "Đăng kí tài khoản không thành công"
-                                  : tb = "Đăng kí tài khoản thành công"))
+                                  :[ tb = "Đăng kí tài khoản thành công", Navigator.pop(context)]))
                           : tb = "tài khoản đã tồn tại");
                     } else {
                       tb = "Mật khẩu xác nhận không trùng khớp";
