@@ -4,6 +4,8 @@ import 'package:doan_monhoc/views/personal_account_management_screen.dart';
 import 'package:doan_monhoc/views/room_device_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../api/model/data.dart';
+
 class YesNoDialog extends StatelessWidget {
   final String title;
   final String content;
@@ -46,10 +48,16 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isExpanded = false;
-  bool stateSwich = false;
-  var icon = Icon(Icons.warning_amber_outlined);
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Data.listenToHomePageDataChanges(() {
+      setState(() {});
+    });
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       child: SingleChildScrollView(
@@ -176,18 +184,17 @@ class _DrawerMenuState extends State<DrawerMenu> {
               },
             ),
             ListTile(
-              leading: icon,
+              leading: Icon(Data.mode_warning
+                  ? Icons.warning
+                  : Icons.warning_amber_outlined),
               title: const Text("Báo động"),
               trailing: Switch(
-                  value: stateSwich,
+                  value: Data.mode_warning,
                   onChanged: (bool value) {
                     setState(() {
-                      stateSwich = value;
-                      if (value == true)
-                        icon = Icon(Icons.warning);
-                      else {
-                        icon = Icon(Icons.warning_amber_outlined);
-                      }
+                      Data.mode_warning = !Data.mode_warning;
+                      Data.reference
+                          .update({"mode_warning": Data.mode_warning});
                     });
                   }),
             ),
@@ -210,7 +217,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 } else {}
               },
             ),
-
           ],
         ),
       ),
