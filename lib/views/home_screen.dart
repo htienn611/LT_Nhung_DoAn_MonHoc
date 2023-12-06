@@ -86,48 +86,50 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: DrawerMenu(),
-      body: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.blue, Colors.purple],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue, Colors.purple],
+            ),
           ),
-        ),
-        height: MediaQuery.of(context).size.height,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Xin chào! ${name.text}',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-              // Thông tin thời tiết nhiệt độ
-              Expanded(
-                flex: 4,
-                child: const CardWeather(),
-              ),
-              Expanded(
-                flex: 7,
-                child: ListView.builder(
-                    itemCount: lstR.length,
-                    itemBuilder: (context, index) {
-                      return lstR[index].follow
-                          ? CardRoomState(
-                              room: lstR[index],
-                            )
-                          : Text("");
-                    }),
-              )
-            ],
+          height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Xin chào! ${name.text}',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                // Thông tin thời tiết nhiệt độ
+                Expanded(
+                  flex: 4,
+                  child: const CardWeather(),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: ListView.builder(
+                      itemCount: lstR.length,
+                      itemBuilder: (context, index) {
+                        return lstR[index].follow
+                            ? CardRoomState(
+                                room: lstR[index],
+                              )
+                            : Text("");
+                      }),
+                )
+              ],
+            ),
           ),
         ),
       ),

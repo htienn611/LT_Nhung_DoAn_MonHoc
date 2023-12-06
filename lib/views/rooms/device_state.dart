@@ -26,7 +26,24 @@ class _DeviceStateState extends State<DeviceState> {
     //print(widget.dv.idx);
     //print(widget.dv.name);
     return Card(
-      child: Container(
+      child:GestureDetector(
+        onTap: () {
+          
+            showDialog(context: context, builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(widget.dv.name.contains("btn")?"Nút nhấn":(widget.dv.name.contains("led")?"Đèn led":"LCD")),
+                content: Text(widget.dv.description),
+                actions: [
+                  TextButton(onPressed: (){
+                    Navigator.of(context).pop();
+                  }, child: Text('Đóng')),
+                ],
+              );
+              
+            });
+        },
+
+        child: Container(
         height: 50,
         padding: const EdgeInsets.only(left: 10),
         child: Row(
@@ -34,9 +51,9 @@ class _DeviceStateState extends State<DeviceState> {
           children: [
             Row(
               children: [
-                Icon(widget.dv.state
+                Icon(widget.dv.name.contains("led")?(widget.dv.state
                     ? Icons.light_mode
-                    : Icons.light_mode_outlined),
+                    : Icons.light_mode_outlined):(widget.dv.name.contains("btn")?Icons.swipe_outlined:Icons.devices_sharp)),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
@@ -45,7 +62,8 @@ class _DeviceStateState extends State<DeviceState> {
                   ),
                 ),
               ],
-            ),
+            ),(
+              widget.dv.name.contains("led")?
             Switch(
                 value: widget.dv.idx==0?Data.mode_warning:widget.dv.state,
                 onChanged: (bool? value) {
@@ -54,10 +72,13 @@ class _DeviceStateState extends State<DeviceState> {
                     Data.updateDevicesStatus(
                         "state", widget.dv.state, widget.idxR, widget.dv.idx);
                   });
-                }),
+                }):Text("")),
           ],
         ),
       ),
+        
+      )
+      
     );
   }
 }
