@@ -36,6 +36,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
         idElement = element.id;
         break;
       }
+      print(idElement);
       return idElement.toString();
     }
 
@@ -43,19 +44,22 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
     void initState() {
       super.initState();
       key = widget.id.contains('@') ? 'Email' : 'Phone';
-      print(key);
-      queryData();
+     // print(key);
+      queryData().then((value) {
+        setState(() {
+          
+        });
+      });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-    //print("a");
-    //print(widget.id);
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Trang chỉnh sửa thông tin")),
+        iconTheme: IconThemeData(size: 25),
+        title: Center(child: Text("Trang chỉnh sửa thông tin",style: TextStyle(color: Colors.black,fontSize: 18),)),
+        backgroundColor: Colors.white,
         
       ),
       drawer: DrawerMenu(),
@@ -270,6 +274,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   collect.doc(idDoc.toString());
                               document.update(dataToUpdate);
                             }
+                            print("Thêm thành công");
                           } else {
                             print(" KHONG THE TIM THAY TAI LIEU CAP NHAT");
                           }

@@ -40,8 +40,9 @@ class _InfoState extends State<Info> {
   void initState() {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
+      queryData();
     setState(() {
-       queryData();
+     
     });
    
   }
