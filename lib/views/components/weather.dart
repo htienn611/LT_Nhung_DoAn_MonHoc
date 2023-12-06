@@ -16,7 +16,9 @@ class _CardWeatherState extends State<CardWeather> {
         margin: const EdgeInsets.only(top: 10),
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
+          border:Border.all(color: Colors.blue) ,
             borderRadius: BorderRadius.circular(15), color: Colors.white),
+            
         child: buildWeatherWidget(cityName));
   }
 }
