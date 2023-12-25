@@ -21,7 +21,8 @@ TextEditingController phone = TextEditingController();
 TextEditingController sex = TextEditingController();
 TextEditingController birthday = TextEditingController();
 TextEditingController emai = TextEditingController();
-late bool auth;
+bool auth =false;
+
 
 class _InfoState extends State<Info> {
   void queryData() async {
@@ -36,27 +37,22 @@ class _InfoState extends State<Info> {
         birthday.text = element['Birthday'];
         emai.text = element['Email'];
         auth=element['Auth'];
-        print(auth);
         setState(() {
      
     });
         break;      
     }
-    };
+    }
   }
+  @override
   void initState() {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
       queryData();
-    
-   
   }
 
   @override
   Widget build(BuildContext context) {
-    //print('a');
-    //print(widget.unit);
-
     double avtW = ((MediaQuery.of(context).size.width - 20) * 1.2 / 3) > 160
         ? 200
         : (MediaQuery.of(context).size.width - 20) * 1.2 / 3;
@@ -74,7 +70,7 @@ class _InfoState extends State<Info> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(this.context);
+              //Navigator.pop(this.context);
 
               Navigator.push(
                 context,

@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.pop(this.context);
+            //  Navigator.pop(this.context);
 
               Navigator.push(
                 context,

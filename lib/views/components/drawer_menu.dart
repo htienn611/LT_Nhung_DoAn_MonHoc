@@ -51,13 +51,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Data.listenToHomePageDataChanges(() {
       setState(() {});
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: SingleChildScrollView(
@@ -75,6 +75,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.home),
               title: const Text("Trang chủ"),
               onTap: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -101,7 +102,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.chair),
                       title: const Text("Phòng khách"),
                       onTap: () {
-                        Navigator.pop(this.context);
+                        Navigator.popUntil(context, (route) => route.isFirst);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -114,7 +115,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.restaurant),
                       title: const Text("Phòng ăn"),
                       onTap: () {
-                        Navigator.pop(this.context);
+                        Navigator.popUntil(context, (route) => route.isFirst);
 
                         Navigator.push(
                             context,
@@ -128,7 +129,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.bed),
                       title: const Text("Phòng ngủ"),
                       onTap: () {
-                        Navigator.pop(this.context);
+                        Navigator.popUntil(context, (route) => route.isFirst);
 
                         Navigator.push(
                             context,
@@ -142,7 +143,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.shower),
                       title: const Text("Phòng vệ sinh"),
                       onTap: () {
-                        Navigator.pop(this.context);
+                        Navigator.popUntil(context, (route) => route.isFirst);
 
                         Navigator.push(
                             context,
@@ -156,7 +157,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       leading: const Icon(Icons.grass),
                       title: const Text("Khu vực sân"),
                       onTap: () {
-                        Navigator.pop(this.context);
+                        Navigator.popUntil(context, (route) => route.isFirst);
 
                         Navigator.push(
                             context,
@@ -173,7 +174,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Tài khoản"),
               onTap: () {
-                Navigator.pop(this.context);
+                Navigator.popUntil(context, (route) => route.isFirst);
 
                 Navigator.push(
                     context,
@@ -211,7 +212,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 );
                 // Xử lý kết quả từ hộp thoại
                 if (result == true) {
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, (route) => route.isFirst);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
                 } else {}
