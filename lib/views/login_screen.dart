@@ -1,14 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_monhoc/views/forgot_pass_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-import '../api/model/data.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -44,7 +38,6 @@ class LoginScreenState extends State<LoginScreen> {
         // print(document.get(field));
 
         String phoneNumberFromFirebase = document.get(key);
-        // print(phoneNumber+" "+phoneNumberFromFirebase);
         String passwordFromFirebase = document.get('Password');
         // So sánh với số điện thoại nhập từ ứng dụng
         if (phoneNumber == phoneNumberFromFirebase &&
@@ -74,14 +67,7 @@ class LoginScreenState extends State<LoginScreen> {
   // }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   Widget build(BuildContext context) {
-    //print("a");
-    //Data.test();
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -162,7 +148,7 @@ class LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     _signIn(phoneController.text, passwordController.text)
                         .then((value) {
-                      loginsucces == true
+                      loginsucces == true&&phoneController.text.isNotEmpty
                           ? [
                               Navigator.pop(context),
                               Navigator.push(
@@ -209,6 +195,7 @@ class LoginScreenState extends State<LoginScreen> {
                 IconButton(
                   onPressed: () {
                     // Thoát ứng dụng khi nhấn nút exit
+                    loginsucces = false;
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                     exit(0);
                   },
@@ -226,6 +213,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   initState() {
     super.initState();
+    loginsucces = false;
     _streamAccountItems = _referenceAccountList.snapshots();
   }
 }
