@@ -23,6 +23,7 @@ TextEditingController birthday = TextEditingController();
 TextEditingController emai = TextEditingController();
 bool auth =false;
 
+
 class _InfoState extends State<Info> {
   void queryData() async {
     QuerySnapshot querySnapshot =
@@ -36,7 +37,6 @@ class _InfoState extends State<Info> {
         birthday.text = element['Birthday'];
         emai.text = element['Email'];
         auth=element['Auth'];
-        //print(auth);
         setState(() {
      
     });
