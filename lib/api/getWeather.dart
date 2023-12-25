@@ -14,7 +14,9 @@ Future<Map<String, dynamic>> getWeather(String cityName) async {
   final response = await http.get(
     Uri.parse(
         'http://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey'),
+        
   );
+       print('http://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey');
 
   if (response.statusCode == 200) {
     return json.decode(response.body);

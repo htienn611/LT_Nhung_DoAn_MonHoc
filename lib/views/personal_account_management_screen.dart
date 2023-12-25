@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:doan_monhoc/views/admin/account_creation_screen.dart';
 import 'package:doan_monhoc/views/edit_personal_info_screen.dart';
 import 'package:doan_monhoc/views/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ TextEditingController phone = TextEditingController();
 TextEditingController sex = TextEditingController();
 TextEditingController birthday = TextEditingController();
 TextEditingController emai = TextEditingController();
+late bool auth;
 
 class _InfoState extends State<Info> {
   void queryData() async {
@@ -33,6 +35,11 @@ class _InfoState extends State<Info> {
         sex.text = element['Sex'];
         birthday.text = element['Birthday'];
         emai.text = element['Email'];
+        auth=element['Auth'];
+        print(auth);
+        setState(() {
+     
+    });
         break;      
     }
     };
@@ -41,9 +48,7 @@ class _InfoState extends State<Info> {
     super.initState();
     key = widget.unit.contains('@') ? 'Email' : 'Phone';
       queryData();
-    setState(() {
-     
-    });
+    
    
   }
 
@@ -145,20 +150,14 @@ class _InfoState extends State<Info> {
                       title: "Email",
                       value: emai.text),
                     
-                  Container(
+                  auth?Container(
                     margin: const EdgeInsets.all(20),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Đưa ra hành động khi nút được nhấn (ví dụ: mở màn hình đổi mật khẩu)
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text(
-                        //         'Chức năng đổi mật khẩu sẽ được thực hiện ở đây.'),
-                        //   ),
-                        // );
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>account_CreationScreen()));
                       },
                       child: Text(
-                        'Đổi Mật Khẩu',
+                        'Tạo tài khoản mới',
                         style: TextStyle(fontSize: 18, color: Colors.black),
                       ),
                       style: ButtonStyle(
@@ -177,7 +176,7 @@ class _InfoState extends State<Info> {
                       ),
                     ),
                     
-                  )
+                  ):Text("")
                 ],
               
               ),
